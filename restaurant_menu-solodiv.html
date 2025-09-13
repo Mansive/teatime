@@ -1,0 +1,317 @@
+<html>
+  <head>
+    <link href="bundle.css" rel="stylesheet" />
+    <style>
+      :root {
+        --background-size: 50px 85px;
+        --background-color: #ffdbb5;
+        --primary-stripe-rgb: #f7cba5;
+        --secondary-stripe-rgb: rgba(47, 0, 255, 0);
+        --stripe-point1: 25.5%;
+        --stripe-point2: calc(100% - var(--stripe-point1));
+        --stripe-angle1: 60deg;
+        --stripe-angle2: calc(-1 * var(--stripe-angle1));
+
+        --primary-box-stripe: #efb78e;
+        --secondary-box-stripe: #f4bf94;
+        --box-dashed: #c07e65;
+        --box-background: #ffe3a5;
+        --box-border: #bd7d63;
+        --box-very-out: #ac7e62;
+
+        --wood-plank-width: calc(100% / 12);
+        --wood-plank-side-width: calc(var(--wood-plank-width) / 2);
+        --wood-plank-top-width: 0.6%;
+        --wood-plank-bottom-width: 2%;
+
+        --wood-color-dark: #8c4e44;
+        --wood-color-light: #a7654f;
+
+        --wood-inset-dark: rgba(42, 0, 0, 0.325);
+        --wood-inset-light: #d6997b6c;
+        --wood-inset-length: 2px;
+
+        --wood-grain: rgba(80, 26, 1, 0.11);
+        --wood-grain-minor: rgba(80, 26, 1, 0.09);
+
+        --wood-edge-color: #70353c;
+
+        --wood-border-color: #d6997b;
+
+        --paper-color: #fff3c6;
+        --paper-color-dark: #fdebbd;
+        --paper-border-color: #f4c389;
+      }
+
+      body {
+        margin: 0px;
+        background-color: var(--background-color);
+        background-size: var(--background-size), var(--background-size);
+        background-image: linear-gradient(
+            var(--stripe-angle1),
+            var(--primary-stripe-rgb) var(--stripe-point1),
+            var(--secondary-stripe-rgb) var(--stripe-point1),
+            var(--secondary-stripe-rgb) var(--stripe-point2),
+            var(--primary-stripe-rgb) var(--stripe-point2)
+          ),
+          linear-gradient(
+            var(--stripe-angle2),
+            var(--primary-stripe-rgb) var(--stripe-point1),
+            var(--secondary-stripe-rgb) var(--stripe-point1),
+            var(--secondary-stripe-rgb) var(--stripe-point2),
+            var(--primary-stripe-rgb) var(--stripe-point2)
+          );
+        animation: pan 5s linear reverse infinite;
+      }
+
+      /* .container {
+        position: relative;
+      } */
+
+      /* .container::before {
+        content: "";
+        position: absolute;
+        top: 1%;
+        left: -2.5%;
+        right: 0px;
+        bottom: 0px;
+        width: 105%;
+        background-size: 50px;
+        background-color: var(--wood-edge-color);
+        border: 2px solid black;
+        border-radius: 1%;
+      } */
+
+      /* wood board */
+      .row {
+        height: 80vh;
+        position: relative;
+        background-image: /* insets */ linear-gradient(
+            to right,
+            transparent calc(var(--wood-plank-side-width) - var(--wood-inset-length)),
+            var(--wood-inset-light) calc(var(--wood-plank-side-width) - var(--wood-inset-length)),
+            var(--wood-inset-dark) calc(var(--wood-plank-side-width) + var(--wood-inset-length)),
+            transparent calc(var(--wood-plank-side-width) + var(--wood-inset-length)),
+            transparent calc(var(--wood-plank-side-width) * 3 - var(--wood-inset-length)),
+            var(--wood-inset-dark) calc(var(--wood-plank-side-width) * 3 - var(--wood-inset-length)),
+            var(--wood-inset-light) calc(var(--wood-plank-side-width) * 3 + var(--wood-inset-length)),
+            transparent calc(var(--wood-plank-side-width) * 3 + var(--wood-inset-length)),
+            transparent calc(var(--wood-plank-side-width) * 5 - var(--wood-inset-length)),
+            var(--wood-inset-light) calc(var(--wood-plank-side-width) * 5 - var(--wood-inset-length)),
+            var(--wood-inset-dark) calc(var(--wood-plank-side-width) * 5 + var(--wood-inset-length)),
+            transparent calc(var(--wood-plank-side-width) * 5 + var(--wood-inset-length)),
+            transparent calc(var(--wood-plank-side-width) * 7 - var(--wood-inset-length)),
+            var(--wood-inset-dark) calc(var(--wood-plank-side-width) * 7 - var(--wood-inset-length)),
+            var(--wood-inset-light) calc(var(--wood-plank-side-width) * 7 + var(--wood-inset-length)),
+            transparent calc(var(--wood-plank-side-width) * 7 + var(--wood-inset-length)),
+            transparent calc(var(--wood-plank-side-width) * 9 - var(--wood-inset-length)),
+            var(--wood-inset-light) calc(var(--wood-plank-side-width) * 9 - var(--wood-inset-length)),
+            var(--wood-inset-dark) calc(var(--wood-plank-side-width) * 9 + var(--wood-inset-length)),
+            transparent calc(var(--wood-plank-side-width) * 9 + var(--wood-inset-length)),
+            transparent calc(var(--wood-plank-side-width) * 11 - var(--wood-inset-length)),
+            var(--wood-inset-dark) calc(var(--wood-plank-side-width) * 11 - var(--wood-inset-length)),
+            var(--wood-inset-light) calc(var(--wood-plank-side-width) * 11 + var(--wood-inset-length)),
+            transparent calc(var(--wood-plank-side-width) * 11 + var(--wood-inset-length)),
+            transparent calc(var(--wood-plank-side-width) * 13 - var(--wood-inset-length)),
+            var(--wood-inset-light) calc(var(--wood-plank-side-width) * 13 - var(--wood-inset-length)),
+            var(--wood-inset-dark) calc(var(--wood-plank-side-width) * 13 + var(--wood-inset-length)),
+            transparent calc(var(--wood-plank-side-width) * 13 + var(--wood-inset-length)),
+            transparent calc(var(--wood-plank-side-width) * 15 - var(--wood-inset-length)),
+            var(--wood-inset-dark) calc(var(--wood-plank-side-width) * 15 - var(--wood-inset-length)),
+            var(--wood-inset-light) calc(var(--wood-plank-side-width) * 15 + var(--wood-inset-length)),
+            transparent calc(var(--wood-plank-side-width) * 15 + var(--wood-inset-length)),
+            transparent calc(var(--wood-plank-side-width) * 17 - var(--wood-inset-length)),
+            var(--wood-inset-light) calc(var(--wood-plank-side-width) * 17 - var(--wood-inset-length)),
+            var(--wood-inset-dark) calc(var(--wood-plank-side-width) * 17 + var(--wood-inset-length)),
+            transparent calc(var(--wood-plank-side-width) * 17 + var(--wood-inset-length)),
+            transparent calc(var(--wood-plank-side-width) * 19 - var(--wood-inset-length)),
+            var(--wood-inset-dark) calc(var(--wood-plank-side-width) * 19 - var(--wood-inset-length)),
+            var(--wood-inset-light) calc(var(--wood-plank-side-width) * 19 + var(--wood-inset-length)),
+            transparent calc(var(--wood-plank-side-width) * 19 + var(--wood-inset-length)),
+            transparent calc(var(--wood-plank-side-width) * 21 - var(--wood-inset-length)),
+            var(--wood-inset-light) calc(var(--wood-plank-side-width) * 21 - var(--wood-inset-length)),
+            var(--wood-inset-dark) calc(var(--wood-plank-side-width) * 21 + var(--wood-inset-length)),
+            transparent calc(var(--wood-plank-side-width) * 21 + var(--wood-inset-length)),
+            transparent calc(var(--wood-plank-side-width) * 23 - var(--wood-inset-length)),
+            var(--wood-inset-dark) calc(var(--wood-plank-side-width) * 23 - var(--wood-inset-length)),
+            var(--wood-inset-light) calc(var(--wood-plank-side-width) * 23 + var(--wood-inset-length)),
+            transparent calc(var(--wood-plank-side-width) * 23 + var(--wood-inset-length))
+          ),
+          /* side edges */
+            linear-gradient(
+              to right,
+              var(--wood-edge-color) calc(var(--wood-plank-side-width) / 2.5),
+              transparent calc(var(--wood-plank-side-width) / 2.5),
+              transparent calc(100% - var(--wood-plank-side-width) / 2.5),
+              var(--wood-edge-color) calc(100% - var(--wood-plank-side-width) / 2.5)
+            ),
+          /* top edge */
+            linear-gradient(to bottom, var(--wood-edge-color) var(--wood-plank-top-width), transparent 0.8%),
+          /* bottom edge */
+            linear-gradient(to top, var(--wood-edge-color) var(--wood-plank-bottom-width), transparent 1.9%),
+          /* wood grain */
+            repeating-linear-gradient(
+              to right,
+              var(--wood-grain),
+              var(--wood-grain) 2px,
+              transparent 2px,
+              transparent 9px,
+              var(--wood-grain) 9px,
+              var(--wood-grain) 11px,
+              transparent 11px,
+              transparent 25px
+            ),
+          /* wood grain 2 */
+            repeating-linear-gradient(
+              85deg,
+              var(--wood-grain-minor),
+              var(--wood-grain-minor) 2px,
+              transparent 2px,
+              transparent 20px,
+              var(--wood-grain-minor) 20px,
+              var(--wood-grain-minor) 22px,
+              transparent 22px,
+              transparent 50px
+            ),
+          /* wood grain 3 */
+            repeating-linear-gradient(
+              -85deg,
+              var(--wood-grain-minor),
+              var(--wood-grain-minor) 2px,
+              transparent 2px,
+              transparent 5px,
+              var(--wood-grain-minor) 5px,
+              var(--wood-grain-minor) 7px,
+              transparent 7px,
+              transparent 100px
+            ),
+          /* wood grain 4 (horizontal) */
+            repeating-linear-gradient(
+              to bottom,
+              transparent 8%,
+              var(--wood-color-light) 8%,
+              var(--wood-color-light) calc(8% + 4px),
+              transparent calc(8% + 4px),
+              transparent 17%,
+              var(--wood-color-light) 17%,
+              var(--wood-color-light) calc(17% + 2px),
+              transparent calc(17% + 2px),
+              transparent 19%,
+              var(--wood-color-light) 19%,
+              var(--wood-color-light) calc(19% + 3px),
+              transparent calc(19% + 3px),
+              transparent 40%,
+              var(--wood-color-light) 40%,
+              var(--wood-color-light) calc(40% + 2px),
+              transparent calc(40% + 2px),
+              transparent 60%
+            ),
+          /* side edges outline */
+            linear-gradient(
+              to right,
+              transparent calc(var(--wood-plank-side-width) / 2.5),
+              var(--wood-border-color) calc(var(--wood-plank-side-width) / 2.5),
+              var(--wood-border-color) calc(var(--wood-plank-side-width) / 2.5 + 2px),
+              transparent calc(var(--wood-plank-side-width) / 2.5 + 2px),
+              transparent calc(100% - var(--wood-plank-side-width) / 2.5 - 2px),
+              var(--wood-border-color) calc(100% - var(--wood-plank-side-width) / 2.5 - 2px)
+            ),
+          /* top edge outline */
+            linear-gradient(
+              to bottom,
+              var(--wood-border-color) calc(var(--wood-plank-top-width) + 3px),
+              transparent calc(var(--wood-plank-top-width) + 3px)
+            ),
+          /* bottom edge outline */
+            linear-gradient(
+              to top,
+              var(--wood-border-color) calc(var(--wood-plank-bottom-width) + 2px),
+              transparent calc(var(--wood-plank-bottom-width) + 2px)
+            ),
+          /* planks */
+            linear-gradient(
+              to right,
+              var(--wood-color-light) var(--wood-plank-side-width),
+              var(--wood-color-dark) var(--wood-plank-side-width),
+              var(--wood-color-dark) calc(var(--wood-plank-side-width) + var(--wood-plank-width)),
+              var(--wood-color-light) calc(var(--wood-plank-side-width) + var(--wood-plank-width)),
+              var(--wood-color-light) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 2),
+              var(--wood-color-dark) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 2),
+              var(--wood-color-dark) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 3),
+              var(--wood-color-light) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 3),
+              var(--wood-color-light) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 4),
+              var(--wood-color-dark) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 4),
+              var(--wood-color-dark) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 5),
+              var(--wood-color-light) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 5),
+              var(--wood-color-light) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 6),
+              var(--wood-color-dark) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 6),
+              var(--wood-color-dark) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 7),
+              var(--wood-color-light) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 7),
+              var(--wood-color-light) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 8),
+              var(--wood-color-dark) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 8),
+              var(--wood-color-dark) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 9),
+              var(--wood-color-light) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 9),
+              var(--wood-color-light) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 10),
+              var(--wood-color-dark) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 10),
+              var(--wood-color-dark) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 11),
+              var(--wood-color-light) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 11)
+            );
+
+        border: 2px solid black;
+        border-radius: 1%;
+
+        /* border-left: 8px solid var(--wood-edge-color);
+        border-right: 8px solid var(--wood-edge-color);
+        border-bottom: 12px solid var(--wood-edge-color);
+        border-top: 5px solid var(--wood-edge-color);
+        border-radius: 1%;
+        outline: 2px solid black; */
+      }
+
+      /* paper */
+      .row::after {
+        content: "";
+        position: absolute;
+        top: 45px;
+        left: 20px;
+        right: 20px;
+        bottom: 35px;
+
+        background-image: radial-gradient(var(--paper-color) 72%, var(--paper-color-dark) 72%);
+        border: 8px solid var(--paper-border-color);
+      }
+
+      .row::before {
+        content: "";
+        position: absolute;
+        top: 20px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        image-rendering: pixelated;
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUoAAAA+CAYAAABN7VJmAAAAAXNSR0IArs4c6QAAAARzQklUCAgICHwIZIgAAARzSURBVHic7d3BbxRlAIbxZ7SaJeHQJkbbaEh6qS4NB9CD9GajQYiNUU8Cxhit/gHKRQMxil4keBeIURLFgwazSQ3R1JhAml4gmtCGImksoJCANChaSct4mFnqAO43uzu12/r8Lrv9OjP9Tm/fnflmJ6J1xIs9AUktJ1rsCQDcttgTkKRW1wppHQPs/PjFxZ6HpBaz/fl9xMlnzUXNKhulJAW0NbDPgp5LLN+3kEeXtBSMn7lpqJDcKaWvM3U2VBulJAX8s1HmSuyxD94AoLxxdSET6Nuxr5DjSFp+Ht7aD8CR1zcnFXDliqaO9+WhowC8MLg7juOY6fAuEdgoJSmojbRJju1+NRlZWcpscGjkBwA2rOkBbm6S41+NFTqhW5ybkPQ/NzwxRQR0nZ9raP9qbj25oQ+AD/ck45NHJoD5fLsx/3pfeTeO49hGKUkh189RHhufBKD/sXUAdK7vBmCoMpJsUE3adI/Rz0YBOHU8qYC/nMvxaf8WRirD6bvkXMS1ho4iaTka3Z/kw+RsiQg49vtMXft33dOevJlN9isPJPnWcy3Jsx8vXAHggcfLRBFM/XQRgMNpvlUXcdooJSngpnWU1SZ5bmSy5o5nT2SbZFdne9Fzk6SMenPm+ifdo0melZ9Yd8sVlCfHpgDoefD+ZCAazawDslFKUkD9d+bMJi8zs9nhLXu+aGoGXacvAVDqLzd2HElLX5oHU8enMsODnw41dLg9z20iAv78q/a5zblf5zJ/f349UMJGKUkBjdzrnfFaetV610B/Q/tfuiu5+vTO/vQ/xjfHmp2SpGXivYH+pr426OX9Q8TMN8tG2SglKaDpRlnVnq6znK5znVPHhWT7XRsba6SSFLKiVLJRStJCKqxRVrmeUtJyY6OUpIDCGmXfI2sBuD32bm1JLWJvdP1+7WbYKCUpwKCUpACDUpICCjtHWUq/rnJmxuyVtESkCThztfb6b1NNkgIKX0fZ0d7cU9Ik6b/Wvaqr5u9tlJIUMN8o770TgE/e+jyzQfXbgTYNrK95oJGTp5I3564WOD1JakJgDeW2g98SxzGdvXcTRUAlm1+dbSVibJSSFNRG+gSJLW8e+Ldtci1r3/L2gWa+nEOSChdFUZznzpytO2vnl41SkgIMSkkKMCglKcCglKQAg1KSAgxKSQowKCUpwKCUpACDUpICDEpJCjAoJSnAoJSkAINSkgIMSkkKMCglKcCglKQAg1KSAnI/hbFjtvbv339pIAaYO3+luRlJUkG2V4aJgVL1mTh3JOOX//itruPYKCUpIHejrHw/DsDgwGoANu94BoC1a7qzG5ZKBU1NkprT/WgPAE/3P5QZPztxJn0aWK5HgtkoJSkkd6O8/PM0ABOjJwDo6V0FQPmpdQswLUlqXvmGn8crYwBMnk7yLGehtFFKUkjuRllV+ejwQsxDklqWjVKSAqI6to0B9j67KTO4YqVXuSUtDV+fvQjAwaHvAJjOmYE2SkkKqKdRVuW8TiRJraU9fc3bJKtslJIU8Dd0wuvji5A8/gAAAABJRU5ErkJggg==");
+        background-repeat: no-repeat;
+        background-size: min(calc(330px / 1.3), 70vw) calc(62px / 1.3);
+        background-position: top center;
+        z-index: 1;
+      }
+
+      @keyframes pan {
+        from {
+          background-position: 0px 0%;
+        }
+
+        to {
+          background-position: 100px 85px;
+        }
+      }
+    </style>
+    <base href="C:\StarryShiliu\Software\Agent\data\scripts" />
+  </head>
+
+  <body>
+    <div class="container p-3">
+      <div class="row"></div>
+    </div>
+  </body>
+</html>

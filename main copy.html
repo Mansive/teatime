@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      :root {
+        --background-color: #ffdbb5;
+        --primary-stripe-rgb: #f7cba5;
+        --secondary-stripe-rgb: rgba(47, 0, 255, 0);
+        --point1: 25.5%;
+        --point2: calc(100% - var(--point1));
+        --background-size: 50px 85px;
+        --stripe-angle1: 60deg;
+        --stripe-angle2: calc(-1 * var(--stripe-angle1));
+
+        --primary-box-stripe: #efb78e;
+        --secondary-box-stripe: #f4bf94;
+        --box-dashed: #c07e65;
+        --box-background: #ffe3a5;
+        --box-border: #bd7d63;
+        --box-very-out: #ac7e62;
+      }
+
+      .box {
+        position: relative;
+
+        background-color: var(--box-background);
+        background-size: var(--background-size);
+        background-image: linear-gradient(
+          to right,
+          var(--primary-box-stripe) 50%,
+          var(--secondary-box-stripe) 50%
+        );
+
+        top: 100px;
+        left: 100px;
+        width: 200px;
+        height: 200px;
+
+        border: 2px solid var(--box-background);
+        border-radius: 5%;
+
+        outline: 4px solid var(--box-very-out);
+        outline-offset: 0px;
+      }
+
+      .box::before {
+        content: "";
+        position: absolute;
+
+        top: 5px;
+        left: 5px;
+        right: 5px;
+        bottom: 5px;
+
+        border: 5px dashed var(--box-dashed);
+        border-radius: 2%;
+
+        outline: 2px solid black;
+        outline-offset: 10px;
+      }
+
+      .box::after {
+        content: "";
+        position: absolute;
+
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+
+        /* border: 1px solid var(--primary-box-stripe); */
+        border-radius: 5%;
+      }
+
+      body {
+        margin: 0px;
+        background-color: var(--background-color);
+        background-size: var(--background-size), var(--background-size);
+        background-image: linear-gradient(
+            var(--stripe-angle1),
+            var(--primary-stripe-rgb) var(--point1),
+            var(--secondary-stripe-rgb) var(--point1),
+            var(--secondary-stripe-rgb) var(--point2),
+            var(--primary-stripe-rgb) var(--point2)
+          ),
+          linear-gradient(
+            var(--stripe-angle2),
+            var(--primary-stripe-rgb) var(--point1),
+            var(--secondary-stripe-rgb) var(--point1),
+            var(--secondary-stripe-rgb) var(--point2),
+            var(--primary-stripe-rgb) var(--point2)
+          );
+        animation: pan 5s linear reverse infinite;
+      }
+
+      @keyframes pan {
+        from {
+          background-position: 0px 0%;
+        }
+        to {
+          background-position: 100px 85px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="thing" class="box"></div>
+  </body>
+</html>
