@@ -1,71 +1,68 @@
 <html>
-  <head>
-    <link href="bundle.css" rel="stylesheet" />
-    <style>
-      :root {
-        --background-size: 50px 85px;
-        --background-color: #ffdbb5;
-        --primary-stripe-rgb: #f7cba5;
-        --secondary-stripe-rgb: rgba(47, 0, 255, 0);
-        --stripe-point1: 25.5%;
-        --stripe-point2: calc(100% - var(--stripe-point1));
-        --stripe-angle1: 60deg;
-        --stripe-angle2: calc(-1 * var(--stripe-angle1));
 
-        --primary-box-stripe: #efb78e;
-        --secondary-box-stripe: #f4bf94;
-        --box-dashed: #c07e65;
-        --box-background: #ffe3a5;
-        --box-border: #bd7d63;
-        --box-very-out: #ac7e62;
+<head>
+  <link href="bundle.css" rel="stylesheet" />
+  <style>
+    :root {
+      --background-size: 50px 85px;
+      --background-color: #ffdbb5;
+      --primary-stripe-rgb: #f7cba5;
+      --secondary-stripe-rgb: rgba(47, 0, 255, 0);
+      --stripe-point1: 25.5%;
+      --stripe-point2: calc(100% - var(--stripe-point1));
+      --stripe-angle1: 60deg;
+      --stripe-angle2: calc(-1 * var(--stripe-angle1));
 
-        --wood-color-dark: #8c4e44;
-        --wood-color-light: #a7654f;
-        --wood-border-dark: rgb(0, 0, 0, 0.2);
-        --wood-border-light: rgba(255, 255, 255, 0.1);
-        --wood-border-width: 2%;
-        --wood-border-point1: var(--wood-border-width);
-        --wood-border-point2: calc(50% - var(--wood-border-width));
-        --wood-border-point3: 50%;
-        --wood-border-point4: calc(50% + var(--wood-border-width));
-        --wood-border-point5: calc(100% - var(--wood-border-width));
-        --wood-border-point6: 100%;
-        --wood-grain: rgba(0, 0, 0, 0.05);
+      --primary-box-stripe: #efb78e;
+      --secondary-box-stripe: #f4bf94;
+      --box-dashed: #c07e65;
+      --box-background: #ffe3a5;
+      --box-border: #bd7d63;
+      --box-very-out: #ac7e62;
 
-        --wood-edge-color: #70353c;
+      --wood-color-dark: #8c4e44;
+      --wood-color-light: #a7654f;
+      --wood-border-dark: rgb(0, 0, 0, 0.2);
+      --wood-border-light: rgba(255, 255, 255, 0.1);
+      --wood-border-width: 2%;
+      --wood-border-point1: var(--wood-border-width);
+      --wood-border-point2: calc(50% - var(--wood-border-width));
+      --wood-border-point3: 50%;
+      --wood-border-point4: calc(50% + var(--wood-border-width));
+      --wood-border-point5: calc(100% - var(--wood-border-width));
+      --wood-border-point6: 100%;
+      --wood-grain: rgba(0, 0, 0, 0.05);
 
-        --paper-color: #fff3c6;
-        --paper-color-dark: #fdebbd;
-        --paper-border-color: #f4c389;
-      }
+      --wood-edge-color: #70353c;
 
-      body {
-        margin: 0px;
-        background-color: var(--background-color);
-        background-size: var(--background-size), var(--background-size);
-        background-image: linear-gradient(
-            var(--stripe-angle1),
-            var(--primary-stripe-rgb) var(--stripe-point1),
-            var(--secondary-stripe-rgb) var(--stripe-point1),
-            var(--secondary-stripe-rgb) var(--stripe-point2),
-            var(--primary-stripe-rgb) var(--stripe-point2)
-          ),
-          linear-gradient(
-            var(--stripe-angle2),
-            var(--primary-stripe-rgb) var(--stripe-point1),
-            var(--secondary-stripe-rgb) var(--stripe-point1),
-            var(--secondary-stripe-rgb) var(--stripe-point2),
-            var(--primary-stripe-rgb) var(--stripe-point2)
-          );
-        animation: pan 5s linear reverse infinite;
-      }
+      --paper-color: #fff3c6;
+      --paper-color-dark: #fdebbd;
+      --paper-border-color: #f4c389;
+    }
 
-      .container {
-        position: relative;
-        /* outline: 5px solid blue; */
-      }
+    body {
+      margin: 0px;
+      background-color: var(--background-color);
+      background-size: var(--background-size), var(--background-size);
+      background-image: linear-gradient(var(--stripe-angle1),
+          var(--primary-stripe-rgb) var(--stripe-point1),
+          var(--secondary-stripe-rgb) var(--stripe-point1),
+          var(--secondary-stripe-rgb) var(--stripe-point2),
+          var(--primary-stripe-rgb) var(--stripe-point2)),
+        linear-gradient(var(--stripe-angle2),
+          var(--primary-stripe-rgb) var(--stripe-point1),
+          var(--secondary-stripe-rgb) var(--stripe-point1),
+          var(--secondary-stripe-rgb) var(--stripe-point2),
+          var(--primary-stripe-rgb) var(--stripe-point2));
+      animation: pan 5s linear reverse infinite;
+    }
 
-      /* .container::before {
+    .container {
+      position: relative;
+      /* outline: 5px solid blue; */
+    }
+
+    /* .container::before {
         content: "";
         position: absolute;
         top: 1%;
@@ -79,89 +76,86 @@
         border-radius: 1%;
       } */
 
-      /* wood board */
-      .row {
-        height: 80vh;
-        position: relative;
-        background-size: 10%;
-        background-position: 14%;
-        background-image: /* insets */ linear-gradient(
-            to right,
-            var(--wood-border-dark) var(--wood-border-point1),
-            transparent var(--wood-border-point1),
-            transparent var(--wood-border-point2),
-            var(--wood-border-dark) var(--wood-border-point2),
-            var(--wood-border-dark) var(--wood-border-point3),
-            var(--wood-border-light) var(--wood-border-point3),
-            var(--wood-border-light) var(--wood-border-point4),
-            transparent var(--wood-border-point4),
-            transparent var(--wood-border-point5),
-            var(--wood-border-light) var(--wood-border-point5),
-            var(--wood-border-light) var(--wood-border-point6)
-          ),
-          /* planks */
-            linear-gradient(
-              to right,
-              var(--wood-color-dark) 50%,
-              var(--wood-color-light) 50%
-            );
+    /* wood board */
+    .row {
+      height: 80vh;
+      position: relative;
+      background-size: 10%;
+      background-position: 14%;
+      background-image:
+        /* insets */
+        linear-gradient(to right,
+          var(--wood-border-dark) var(--wood-border-point1),
+          transparent var(--wood-border-point1),
+          transparent var(--wood-border-point2),
+          var(--wood-border-dark) var(--wood-border-point2),
+          var(--wood-border-dark) var(--wood-border-point3),
+          var(--wood-border-light) var(--wood-border-point3),
+          var(--wood-border-light) var(--wood-border-point4),
+          transparent var(--wood-border-point4),
+          transparent var(--wood-border-point5),
+          var(--wood-border-light) var(--wood-border-point5),
+          var(--wood-border-light) var(--wood-border-point6)),
+        /* planks */
+        linear-gradient(to right,
+          var(--wood-color-dark) 50%,
+          var(--wood-color-light) 50%);
 
-        border-left: 8px solid var(--wood-edge-color);
-        border-right: 8px solid var(--wood-edge-color);
-        border-bottom: 12px solid var(--wood-edge-color);
-        border-top: 5px solid var(--wood-edge-color);
-        border-radius: 1%;
-        outline: 2px solid black;
-      }
+      border-left: 8px solid var(--wood-edge-color);
+      border-right: 8px solid var(--wood-edge-color);
+      border-bottom: 12px solid var(--wood-edge-color);
+      border-top: 5px solid var(--wood-edge-color);
+      border-radius: 1%;
+      outline: 2px solid black;
+    }
 
-      /* wood grain */
-      .row::before {
-        content: "";
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        right: 0px;
-        bottom: 0px;
-        background-size: 4px;
-        background-image: linear-gradient(
-          to right,
+    /* wood grain */
+    .row::before {
+      content: "";
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      right: 0px;
+      bottom: 0px;
+      background-size: 4px;
+      background-image: linear-gradient(to right,
           var(--wood-grain) 5%,
           transparent 5%,
           transparent 90%,
-          var(--wood-grain) 90%
-        );
+          var(--wood-grain) 90%);
+    }
+
+    /* paper */
+    .row::after {
+      content: "yeehaw";
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+
+      background-image: radial-gradient(var(--paper-color) 72%,
+          var(--paper-color-dark) 72%);
+      border: 10px solid var(--paper-border-color);
+    }
+
+    @keyframes pan {
+      from {
+        background-position: 0px 0%;
       }
 
-      /* paper */
-      .row::after {
-        content: "yeehaw";
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        right: 20px;
-        bottom: 20px;
-
-        background-image: radial-gradient(
-          var(--paper-color) 72%,
-          var(--paper-color-dark) 72%
-        );
-        border: 10px solid var(--paper-border-color);
+      to {
+        background-position: 100px 85px;
       }
+    }
+  </style>
+  <base href="C:\StarryShiliu\Software\Agent\data\scripts" />
+</head>
 
-      @keyframes pan {
-        from {
-          background-position: 0px 0%;
-        }
-        to {
-          background-position: 100px 85px;
-        }
-      }
-    </style>
-    <base href="C:\StarryShiliu\Software\Agent\data\scripts" />
-  </head>
-  <body>
-    <div class="container p-3">
-      <div class="row"></div>
-    </div>
-  </body>
+<body>
+  <div class="container p-3">
+    <div class="row"></div>
+  </div>
+</body>
+
 </html>
