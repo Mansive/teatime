@@ -1,782 +1,906 @@
 <html>
-  <head>
-    <link href="bundle.css" rel="stylesheet" />
-    <style>
-      /* position alerts at the bottom of the page */
-      .alert {
-        position: fixed;
-        bottom: 0;
-        left: 1em;
-        width: calc(100% - 2em);
-      }
-      #loading {
-        height: calc(100% - 3em);
-      }
-      #options {
-        margin-bottom: 2em;
-      }
 
-      :root {
-        --background-color: #ffdbb5;
-        --primary-stripe-rgb: #f7cba5;
-        --secondary-stripe-rgb: rgba(47, 0, 255, 0);
-        --point1: 25.5%;
-        --point2: calc(100% - var(--point1));
-        --background-size: 50px 85px;
-        --stripe-angle1: 60deg;
-        --stripe-angle2: calc(-1 * var(--stripe-angle1));
+<head>
+  <link href="bundle.css" rel="stylesheet" />
+  <style>
+    /* position alerts at the bottom of the page */
+    .alert {
+      position: fixed;
+      bottom: 0;
+      left: 1em;
+      width: calc(100% - 2em);
+    }
 
-        --primary-box-stripe: #efb78e;
-        --secondary-box-stripe: #f4bf94;
-        --box-dashed: #c07e65;
-        --box-background: #ffe3a5;
-        --box-border: #bd7d63;
-        --box-very-out: #ac7e62;
-      }
+    #loading {
+      height: calc(100% - 3em);
+    }
 
-      .row {
-        position: relative;
+    #options {
+      margin-bottom: 2em;
+    }
 
-        background-color: var(--box-background);
-        background-size: var(--background-size);
-        background-image: linear-gradient(
-          to right,
-          var(--primary-box-stripe) 50%,
-          var(--secondary-box-stripe) 50%
-        );
+    :root {
+      --background-size: 50px 85px;
+      --background-color: #ffdbb5;
+      --primary-stripe-rgb: #f7cba5;
+      --secondary-stripe-rgb: rgba(47, 0, 255, 0);
+      --stripe-point1: 25.5%;
+      --stripe-point2: calc(100% - var(--stripe-point1));
+      --stripe-angle1: 60deg;
+      --stripe-angle2: calc(-1 * var(--stripe-angle1));
 
-        /* top: 100px;
-        left: 100px;
-        width: 200px;
-        height: 200px; */
+      --primary-box-stripe: #efb78e;
+      --secondary-box-stripe: #f4bf94;
+      --box-dashed: #c07e65;
+      --box-background: #ffe3a5;
+      --box-border: #bd7d63;
+      --box-very-out: #ac7e62;
 
-        border: 2px solid var(--box-background);
-        border-radius: 1.7%;
+      --wood-plank-width: calc(100% / 12);
+      --wood-plank-side-width: calc(var(--wood-plank-width) / 2);
+      --wood-plank-top-width: 0.6%;
+      --wood-plank-bottom-width: 2%;
 
-        outline: 4px solid var(--box-very-out);
-        outline-offset: 0px;
-      }
+      --wood-color-dark: #8c4e44;
+      --wood-color-light: #a7654f;
 
-      /* dashed border inside and solid black outline outside */
-      .row::before {
-        content: "";
-        position: absolute;
+      --wood-inset-dark: rgba(42, 0, 0, 0.325);
+      --wood-inset-light: #d6997b6c;
+      --wood-inset-length: 2px;
 
-        top: 5px;
-        left: 5px;
-        right: 5px;
-        bottom: 5px;
+      --wood-grain: rgba(80, 26, 1, 0.11);
+      --wood-grain-minor: rgba(80, 26, 1, 0.09);
 
-        border: 5px dashed var(--box-dashed);
-        border-radius: 1%;
+      --wood-edge-color: #70353c;
 
-        outline: 2px solid black;
-        outline-offset: 10px;
-      }
+      --wood-border-color: #d6997b;
 
-      body {
-        margin: 0px;
-        background-color: var(--background-color);
-        background-size: var(--background-size), var(--background-size);
-        background-image: linear-gradient(
-            var(--stripe-angle1),
-            var(--primary-stripe-rgb) var(--point1),
-            var(--secondary-stripe-rgb) var(--point1),
-            var(--secondary-stripe-rgb) var(--point2),
-            var(--primary-stripe-rgb) var(--point2)
-          ),
-          linear-gradient(
-            var(--stripe-angle2),
-            var(--primary-stripe-rgb) var(--point1),
-            var(--secondary-stripe-rgb) var(--point1),
-            var(--secondary-stripe-rgb) var(--point2),
-            var(--primary-stripe-rgb) var(--point2)
-          );
-        animation: pan 5s linear reverse infinite;
+      --paper-color: #fff3c6;
+      --paper-color-dark: #fdebbd;
+      --paper-border-color: #f4c389;
+      --paper-border-width: 8px;
+      --paper-shadow-size: 70%;
+
+      cursor: url("kmtt-cursor-pointer.svg"), auto;
+    }
+
+    body {
+      margin: 0px;
+      background-color: var(--background-color);
+      background-size: var(--background-size), var(--background-size);
+      background-image: linear-gradient(var(--stripe-angle1),
+          var(--primary-stripe-rgb) var(--stripe-point1),
+          var(--secondary-stripe-rgb) var(--stripe-point1),
+          var(--secondary-stripe-rgb) var(--stripe-point2),
+          var(--primary-stripe-rgb) var(--stripe-point2)),
+        linear-gradient(var(--stripe-angle2),
+          var(--primary-stripe-rgb) var(--stripe-point1),
+          var(--secondary-stripe-rgb) var(--stripe-point1),
+          var(--secondary-stripe-rgb) var(--stripe-point2),
+          var(--primary-stripe-rgb) var(--stripe-point2));
+      animation: pan 5s linear reverse infinite;
+    }
+
+    @keyframes pan {
+      from {
+        background-position: 0px 0%;
       }
 
-      @keyframes pan {
-        from {
-          background-position: 0px 0%;
-        }
-        to {
-          background-position: 100px 85px;
-        }
+      to {
+        background-position: 100px 85px;
       }
-    </style>
-    <base href="C:\StarryShiliu\Software\Agent\data\scripts" />
-  </head>
-  <body>
-    <div class="container p-3">
-      <div class="row">
-        <div class="col-md-12">
-          <h2 id="title" class="text-center">Kemono Teatime</h2>
-          <p id="description" class="text-center">
-            Configure text output and which hooks are enabled. <br />Hold the
-            <code>Ctrl</code> key while clicking on hooks to toggle them
-            individually. <br />Press <code>Ctrl + A</code> after clicking on a
-            hooks box to enable all hooks in it. <br />Check Agent's console
-            output to see each text's corresponding hook.
-          </p>
-          <div id="options">
-            <div class="form-check mb-2">
-              <input
-                id="config_singleSentence"
-                class="form-check-input"
-                type="checkbox"
-                role="switch"
-              /><label class="form-check-label" for="config_singleSentence"
-                >Single-line sentences</label
-              ><small class="form-text text-muted"
-                >Attempt to convert sentences that span multiple lines into a
-                single line. Useful for external apps that need to parse
-                sentences. Disable if you want to retain the text's original
-                formatting.</small
-              >
-            </div>
-            <div class="form-group mb-2">
-              <label for="config_hooksEnabledCount"
-                >Number of hooks enabled</label
-              ><input
-                id="config_hooksEnabledCount"
-                class="form-control"
-                readonly=""
-                type="text"
-              />
-            </div>
-            <div class="form-group mb-2">
-              <label for="config_selectedHook"
-                >Display character count from...</label
-              ><select id="config_selectedHook" class="custom-select">
-                <option value="AreaNameBanner">AreaNameBanner</option>
-                <option value="BattleAction">BattleAction</option>
-                <option value="BattleActionEnemySpecial">
-                  BattleActionEnemySpecial
-                </option>
-                <option value="BattleActionSpecial">BattleActionSpecial</option>
-                <option value="BattleEnemyName">BattleEnemyName</option>
-                <option value="BattleSkillInfo1">BattleSkillInfo1</option>
-                <option value="BattleSkillInfo2">BattleSkillInfo2</option>
-                <option value="Choice">Choice</option>
-                <option value="CraftRecipeMaterial1">
-                  CraftRecipeMaterial1
-                </option>
-                <option value="CraftRecipeMaterial2">
-                  CraftRecipeMaterial2
-                </option>
-                <option value="CraftRecipeName">CraftRecipeName</option>
-                <option value="CraftTransferTraitInfo">
-                  CraftTransferTraitInfo
-                </option>
-                <option value="DMakerMaterialCategory">
-                  DMakerMaterialCategory
-                </option>
-                <option value="DMakerMaterialTrait">DMakerMaterialTrait</option>
-                <option value="DialogueName">DialogueName</option>
-                <option value="DialogueText">DialogueText</option>
-                <option value="EncyclopediaDialogue">
-                  EncyclopediaDialogue
-                </option>
-                <option value="EncyclopediaEffectInfo">
-                  EncyclopediaEffectInfo
-                </option>
-                <option value="EncyclopediaEffectName">
-                  EncyclopediaEffectName
-                </option>
-                <option value="EncyclopediaEnemyName">
-                  EncyclopediaEnemyName
-                </option>
-                <option value="EncyclopediaFacilityName">
-                  EncyclopediaFacilityName
-                </option>
-                <option value="EncyclopediaFieldName">
-                  EncyclopediaFieldName
-                </option>
-                <option value="EncyclopediaHelpInfo">
-                  EncyclopediaHelpInfo
-                </option>
-                <option value="EncyclopediaHelpName">
-                  EncyclopediaHelpName
-                </option>
-                <option value="EncyclopediaItemName">
-                  EncyclopediaItemName
-                </option>
-                <option value="EncyclopediaRecipeCategory">
-                  EncyclopediaRecipeCategory
-                </option>
-                <option value="EncyclopediaRecipeCompleteName">
-                  EncyclopediaRecipeCompleteName
-                </option>
-                <option value="EncyclopediaRecipeCondition">
-                  EncyclopediaRecipeCondition
-                </option>
-                <option value="EncyclopediaRecipeIncompleteName">
-                  EncyclopediaRecipeIncompleteName
-                </option>
-                <option value="EncyclopediaRecipeMaterial1">
-                  EncyclopediaRecipeMaterial1
-                </option>
-                <option value="EncyclopediaRecipeMaterial2">
-                  EncyclopediaRecipeMaterial2
-                </option>
-                <option value="EncyclopediaTraitInfo">
-                  EncyclopediaTraitInfo
-                </option>
-                <option value="EncyclopediaTraitName">
-                  EncyclopediaTraitName
-                </option>
-                <option value="EventInfo">EventInfo</option>
-                <option value="EventName">EventName</option>
-                <option value="EventObjective">EventObjective</option>
-                <option value="ExtraSoundRoomInfo">ExtraSoundRoomInfo</option>
-                <option value="ExtraSoundRoomName">ExtraSoundRoomName</option>
-                <option value="ItemName">ItemName</option>
-                <option value="MainMenuDialogue">MainMenuDialogue</option>
-                <option value="MaterialCategory">MaterialCategory</option>
-                <option value="MaterialEffect">MaterialEffect</option>
-                <option value="MaterialQuality">MaterialQuality</option>
-                <option value="MaterialTrait">MaterialTrait</option>
-                <option value="NotificationBanner">NotificationBanner</option>
-                <option value="QuestEnemyName">QuestEnemyName</option>
-                <option value="QuestInfo">QuestInfo</option>
-                <option value="QuestItemName">QuestItemName</option>
-                <option value="QuestName">QuestName</option>
-                <option value="RecipeMaterial1">RecipeMaterial1</option>
-                <option value="RecipeMaterial2">RecipeMaterial2</option>
-                <option value="RecipeName">RecipeName</option>
-                <option value="RecipeObtainedName">RecipeObtainedName</option>
-                <option value="RelatedRecipe">RelatedRecipe</option>
-                <option value="RumorKnownInfo">RumorKnownInfo</option>
-                <option value="RumorName">RumorName</option>
-                <option value="RumorTypeName">RumorTypeName</option>
-                <option value="RumorUnknownInfo">RumorUnknownInfo</option>
-                <option value="SideDialogue">SideDialogue</option>
-                <option value="SkillObtained">SkillObtained</option>
-                <option value="StatusAbilityInfo">StatusAbilityInfo</option>
-                <option value="StatusSkillInfo">StatusSkillInfo</option>
-                <option value="StatusSkillName">StatusSkillName</option>
-                <option value="SynthesisTransferTraitInfo">
-                  SynthesisTransferTraitInfo
-                </option>
-                <option value="TownMapAreaName">TownMapAreaName</option>
-                <option value="WorldMapAreaName">
-                  WorldMapAreaName
-                </option></select
-              ><small class="form-text text-muted"
-                >Select a hook to display its character count.</small
-              >
-            </div>
-            <div class="form-group mb-2">
-              <label for="config_selectedHookCharacterCount"
-                >Character count for selected hook</label
-              ><input
-                id="config_selectedHookCharacterCount"
-                class="form-control"
-                readonly=""
-                type="number"
-              /><small class="form-text text-muted"
-                >Displays the total number of characters outputted by the
-                selected hook. <br />Resets with each session.</small
-              >
-            </div>
-            <div class="form-group mb-2">
-              <label for="config_hooksMain">Main Hooks</label
-              ><select
-                id="config_hooksMain"
-                class="custom-select"
-                multiple="multiple"
-              >
-                <option value="DialogueName">DialogueName</option>
-                <option value="DialogueText">DialogueText</option>
-                <option value="Choice">Choice</option></select
-              ><small class="form-text text-muted"
-                >Dialogue during cutscenes and choices.</small
-              >
-            </div>
-            <div class="form-group mb-2">
-              <label for="config_hooksOverworld">Overworld Hooks</label
-              ><select
-                id="config_hooksOverworld"
-                class="custom-select"
-                multiple="multiple"
-              >
-                <option value="NotificationBanner">NotificationBanner</option>
-                <option value="AreaNameBanner">AreaNameBanner</option>
-                <option value="SideDialogue">SideDialogue</option>
-                <option value="BattleEnemyName">BattleEnemyName</option>
-                <option value="BattleSkillInfo1">BattleSkillInfo1</option>
-                <option value="BattleSkillInfo2">BattleSkillInfo2</option>
-                <option value="BattleAction">BattleAction</option>
-                <option value="BattleActionSpecial">BattleActionSpecial</option>
-                <option value="BattleActionEnemySpecial">
-                  BattleActionEnemySpecial
-                </option>
-                <option value="SkillObtained">SkillObtained</option></select
-              ><small class="form-text text-muted"
-                >Texts that occur in the overworld, such as enemy skill names
-                and area banners.</small
-              >
-            </div>
-            <div class="form-group mb-2">
-              <label for="config_hooksMenu">Menu Hooks</label
-              ><select
-                id="config_hooksMenu"
-                class="custom-select"
-                multiple="multiple"
-              >
-                <option value="WorldMapAreaName">WorldMapAreaName</option>
-                <option value="TownMapAreaName">TownMapAreaName</option>
-                <option value="MainMenuDialogue">MainMenuDialogue</option>
-                <option value="EventName">EventName</option>
-                <option value="EventInfo">EventInfo</option>
-                <option value="QuestName">QuestName</option>
-                <option value="QuestEnemyName">QuestEnemyName</option>
-                <option value="QuestItemName">QuestItemName</option>
-                <option value="QuestInfo">QuestInfo</option>
-                <option value="RumorName">RumorName</option>
-                <option value="RumorTypeName">RumorTypeName</option>
-                <option value="RumorKnownInfo">RumorKnownInfo</option>
-                <option value="RumorUnknownInfo">RumorUnknownInfo</option>
-                <option value="EventObjective">EventObjective</option>
-                <option value="StatusSkillName">StatusSkillName</option>
-                <option value="StatusSkillInfo">StatusSkillInfo</option>
-                <option value="StatusAbilityInfo">StatusAbilityInfo</option>
-                <option value="ItemName">ItemName</option>
-                <option value="RecipeName">RecipeName</option>
-                <option value="RecipeObtainedName">RecipeObtainedName</option>
-                <option value="RecipeMaterial1">RecipeMaterial1</option>
-                <option value="RecipeMaterial2">RecipeMaterial2</option>
-                <option value="MaterialQuality">MaterialQuality</option>
-                <option value="MaterialEffect">MaterialEffect</option>
-                <option value="MaterialTrait">MaterialTrait</option>
-                <option value="MaterialCategory">MaterialCategory</option>
-                <option value="RelatedRecipe">RelatedRecipe</option>
-                <option value="SynthesisTransferTraitInfo">
-                  SynthesisTransferTraitInfo
-                </option>
-                <option value="CraftTransferTraitInfo">
-                  CraftTransferTraitInfo
-                </option>
-                <option value="CraftRecipeName">CraftRecipeName</option>
-                <option value="CraftRecipeMaterial1">
-                  CraftRecipeMaterial1
-                </option>
-                <option value="CraftRecipeMaterial2">
-                  CraftRecipeMaterial2
-                </option>
-                <option value="DMakerMaterialCategory">
-                  DMakerMaterialCategory
-                </option>
-                <option value="DMakerMaterialTrait">
-                  DMakerMaterialTrait
-                </option></select
-              ><small class="form-text text-muted"
-                >Menu texts such as recipes, quests, and more.</small
-              >
-            </div>
-            <div class="form-group mb-2">
-              <label for="config_hooksEncyclopedia">Encyclopedia Hooks</label
-              ><select
-                id="config_hooksEncyclopedia"
-                class="custom-select"
-                multiple="multiple"
-              >
-                <option value="EncyclopediaItemName">
-                  EncyclopediaItemName
-                </option>
-                <option value="EncyclopediaFacilityName">
-                  EncyclopediaFacilityName
-                </option>
-                <option value="EncyclopediaFieldName">
-                  EncyclopediaFieldName
-                </option>
-                <option value="EncyclopediaEnemyName">
-                  EncyclopediaEnemyName
-                </option>
-                <option value="EncyclopediaDialogue">
-                  EncyclopediaDialogue
-                </option>
-                <option value="EncyclopediaEffectName">
-                  EncyclopediaEffectName
-                </option>
-                <option value="EncyclopediaEffectInfo">
-                  EncyclopediaEffectInfo
-                </option>
-                <option value="EncyclopediaTraitName">
-                  EncyclopediaTraitName
-                </option>
-                <option value="EncyclopediaTraitInfo">
-                  EncyclopediaTraitInfo
-                </option>
-                <option value="EncyclopediaHelpName">
-                  EncyclopediaHelpName
-                </option>
-                <option value="EncyclopediaHelpInfo">
-                  EncyclopediaHelpInfo
-                </option>
-                <option value="EncyclopediaRecipeCompleteName">
-                  EncyclopediaRecipeCompleteName
-                </option>
-                <option value="EncyclopediaRecipeIncompleteName">
-                  EncyclopediaRecipeIncompleteName
-                </option>
-                <option value="EncyclopediaRecipeCondition">
-                  EncyclopediaRecipeCondition
-                </option>
-                <option value="EncyclopediaRecipeCategory">
-                  EncyclopediaRecipeCategory
-                </option>
-                <option value="EncyclopediaRecipeMaterial1">
-                  EncyclopediaRecipeMaterial1
-                </option>
-                <option value="EncyclopediaRecipeMaterial2">
-                  EncyclopediaRecipeMaterial2
-                </option>
-                <option value="ExtraSoundRoomName">ExtraSoundRoomName</option>
-                <option value="ExtraSoundRoomInfo">
-                  ExtraSoundRoomInfo
-                </option></select
-              ><small class="form-text text-muted">Encyclopedia texts.</small>
-            </div>
+    }
+
+    /* wood board */
+    .row {
+      height: 80vh;
+      position: relative;
+      background-image:
+        /* insets */
+        linear-gradient(to right,
+          transparent calc(var(--wood-plank-side-width) - var(--wood-inset-length)),
+          var(--wood-inset-light) calc(var(--wood-plank-side-width) - var(--wood-inset-length)),
+          var(--wood-inset-dark) calc(var(--wood-plank-side-width) + var(--wood-inset-length)),
+          transparent calc(var(--wood-plank-side-width) + var(--wood-inset-length)),
+          transparent calc(var(--wood-plank-side-width) * 3 - var(--wood-inset-length)),
+          var(--wood-inset-dark) calc(var(--wood-plank-side-width) * 3 - var(--wood-inset-length)),
+          var(--wood-inset-light) calc(var(--wood-plank-side-width) * 3 + var(--wood-inset-length)),
+          transparent calc(var(--wood-plank-side-width) * 3 + var(--wood-inset-length)),
+          transparent calc(var(--wood-plank-side-width) * 5 - var(--wood-inset-length)),
+          var(--wood-inset-light) calc(var(--wood-plank-side-width) * 5 - var(--wood-inset-length)),
+          var(--wood-inset-dark) calc(var(--wood-plank-side-width) * 5 + var(--wood-inset-length)),
+          transparent calc(var(--wood-plank-side-width) * 5 + var(--wood-inset-length)),
+          transparent calc(var(--wood-plank-side-width) * 7 - var(--wood-inset-length)),
+          var(--wood-inset-dark) calc(var(--wood-plank-side-width) * 7 - var(--wood-inset-length)),
+          var(--wood-inset-light) calc(var(--wood-plank-side-width) * 7 + var(--wood-inset-length)),
+          transparent calc(var(--wood-plank-side-width) * 7 + var(--wood-inset-length)),
+          transparent calc(var(--wood-plank-side-width) * 9 - var(--wood-inset-length)),
+          var(--wood-inset-light) calc(var(--wood-plank-side-width) * 9 - var(--wood-inset-length)),
+          var(--wood-inset-dark) calc(var(--wood-plank-side-width) * 9 + var(--wood-inset-length)),
+          transparent calc(var(--wood-plank-side-width) * 9 + var(--wood-inset-length)),
+          transparent calc(var(--wood-plank-side-width) * 11 - var(--wood-inset-length)),
+          var(--wood-inset-dark) calc(var(--wood-plank-side-width) * 11 - var(--wood-inset-length)),
+          var(--wood-inset-light) calc(var(--wood-plank-side-width) * 11 + var(--wood-inset-length)),
+          transparent calc(var(--wood-plank-side-width) * 11 + var(--wood-inset-length)),
+          transparent calc(var(--wood-plank-side-width) * 13 - var(--wood-inset-length)),
+          var(--wood-inset-light) calc(var(--wood-plank-side-width) * 13 - var(--wood-inset-length)),
+          var(--wood-inset-dark) calc(var(--wood-plank-side-width) * 13 + var(--wood-inset-length)),
+          transparent calc(var(--wood-plank-side-width) * 13 + var(--wood-inset-length)),
+          transparent calc(var(--wood-plank-side-width) * 15 - var(--wood-inset-length)),
+          var(--wood-inset-dark) calc(var(--wood-plank-side-width) * 15 - var(--wood-inset-length)),
+          var(--wood-inset-light) calc(var(--wood-plank-side-width) * 15 + var(--wood-inset-length)),
+          transparent calc(var(--wood-plank-side-width) * 15 + var(--wood-inset-length)),
+          transparent calc(var(--wood-plank-side-width) * 17 - var(--wood-inset-length)),
+          var(--wood-inset-light) calc(var(--wood-plank-side-width) * 17 - var(--wood-inset-length)),
+          var(--wood-inset-dark) calc(var(--wood-plank-side-width) * 17 + var(--wood-inset-length)),
+          transparent calc(var(--wood-plank-side-width) * 17 + var(--wood-inset-length)),
+          transparent calc(var(--wood-plank-side-width) * 19 - var(--wood-inset-length)),
+          var(--wood-inset-dark) calc(var(--wood-plank-side-width) * 19 - var(--wood-inset-length)),
+          var(--wood-inset-light) calc(var(--wood-plank-side-width) * 19 + var(--wood-inset-length)),
+          transparent calc(var(--wood-plank-side-width) * 19 + var(--wood-inset-length)),
+          transparent calc(var(--wood-plank-side-width) * 21 - var(--wood-inset-length)),
+          var(--wood-inset-light) calc(var(--wood-plank-side-width) * 21 - var(--wood-inset-length)),
+          var(--wood-inset-dark) calc(var(--wood-plank-side-width) * 21 + var(--wood-inset-length)),
+          transparent calc(var(--wood-plank-side-width) * 21 + var(--wood-inset-length)),
+          transparent calc(var(--wood-plank-side-width) * 23 - var(--wood-inset-length)),
+          var(--wood-inset-dark) calc(var(--wood-plank-side-width) * 23 - var(--wood-inset-length)),
+          var(--wood-inset-light) calc(var(--wood-plank-side-width) * 23 + var(--wood-inset-length)),
+          transparent calc(var(--wood-plank-side-width) * 23 + var(--wood-inset-length))),
+        /* side edges */
+        linear-gradient(to right,
+          var(--wood-edge-color) calc(var(--wood-plank-side-width) / 2.5),
+          transparent calc(var(--wood-plank-side-width) / 2.5),
+          transparent calc(100% - var(--wood-plank-side-width) / 2.5),
+          var(--wood-edge-color) calc(100% - var(--wood-plank-side-width) / 2.5)),
+        /* top edge */
+        linear-gradient(to bottom,
+          var(--wood-edge-color) var(--wood-plank-top-width),
+          transparent 0.8%),
+        /* bottom edge */
+        linear-gradient(to top,
+          var(--wood-edge-color) var(--wood-plank-bottom-width),
+          transparent 1.9%),
+        /* wood grain */
+        repeating-linear-gradient(to right,
+          var(--wood-grain),
+          var(--wood-grain) 2px,
+          transparent 2px,
+          transparent 9px,
+          var(--wood-grain) 9px,
+          var(--wood-grain) 11px,
+          transparent 11px,
+          transparent 25px),
+        /* wood grain 2 */
+        repeating-linear-gradient(85deg,
+          var(--wood-grain-minor),
+          var(--wood-grain-minor) 2px,
+          transparent 2px,
+          transparent 20px,
+          var(--wood-grain-minor) 20px,
+          var(--wood-grain-minor) 22px,
+          transparent 22px,
+          transparent 50px),
+        /* wood grain 3 */
+        repeating-linear-gradient(-85deg,
+          var(--wood-grain-minor),
+          var(--wood-grain-minor) 2px,
+          transparent 2px,
+          transparent 5px,
+          var(--wood-grain-minor) 5px,
+          var(--wood-grain-minor) 7px,
+          transparent 7px,
+          transparent 100px),
+        /* wood grain 4 (horizontal) */
+        repeating-linear-gradient(to bottom,
+          transparent 8%,
+          var(--wood-color-light) 8%,
+          var(--wood-color-light) calc(8% + 4px),
+          transparent calc(8% + 4px),
+          transparent 17%,
+          var(--wood-color-light) 17%,
+          var(--wood-color-light) calc(17% + 2px),
+          transparent calc(17% + 2px),
+          transparent 19%,
+          var(--wood-color-light) 19%,
+          var(--wood-color-light) calc(19% + 3px),
+          transparent calc(19% + 3px),
+          transparent 40%,
+          var(--wood-color-light) 40%,
+          var(--wood-color-light) calc(40% + 2px),
+          transparent calc(40% + 2px),
+          transparent 60%),
+        /* side edges outline */
+        linear-gradient(to right,
+          transparent calc(var(--wood-plank-side-width) / 2.5),
+          var(--wood-border-color) calc(var(--wood-plank-side-width) / 2.5),
+          var(--wood-border-color) calc(var(--wood-plank-side-width) / 2.5 + 2px),
+          transparent calc(var(--wood-plank-side-width) / 2.5 + 2px),
+          transparent calc(100% - var(--wood-plank-side-width) / 2.5 - 2px),
+          var(--wood-border-color) calc(100% - var(--wood-plank-side-width) / 2.5 - 2px)),
+        /* top edge outline */
+        linear-gradient(to bottom,
+          var(--wood-border-color) calc(var(--wood-plank-top-width) + 3px),
+          transparent calc(var(--wood-plank-top-width) + 3px)),
+        /* bottom edge outline */
+        linear-gradient(to top,
+          var(--wood-border-color) calc(var(--wood-plank-bottom-width) + 2px),
+          transparent calc(var(--wood-plank-bottom-width) + 2px)),
+        /* planks */
+        linear-gradient(to right,
+          var(--wood-color-light) var(--wood-plank-side-width),
+          var(--wood-color-dark) var(--wood-plank-side-width),
+          var(--wood-color-dark) calc(var(--wood-plank-side-width) + var(--wood-plank-width)),
+          var(--wood-color-light) calc(var(--wood-plank-side-width) + var(--wood-plank-width)),
+          var(--wood-color-light) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 2),
+          var(--wood-color-dark) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 2),
+          var(--wood-color-dark) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 3),
+          var(--wood-color-light) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 3),
+          var(--wood-color-light) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 4),
+          var(--wood-color-dark) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 4),
+          var(--wood-color-dark) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 5),
+          var(--wood-color-light) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 5),
+          var(--wood-color-light) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 6),
+          var(--wood-color-dark) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 6),
+          var(--wood-color-dark) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 7),
+          var(--wood-color-light) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 7),
+          var(--wood-color-light) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 8),
+          var(--wood-color-dark) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 8),
+          var(--wood-color-dark) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 9),
+          var(--wood-color-light) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 9),
+          var(--wood-color-light) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 10),
+          var(--wood-color-dark) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 10),
+          var(--wood-color-dark) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 11),
+          var(--wood-color-light) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 11));
+
+      border: 2px solid black;
+      border-radius: 1%;
+    }
+
+    /* paper */
+    .row::after {
+      content: "";
+      position: absolute;
+      top: 40px;
+      left: 0px;
+      right: 0px;
+      bottom: 30px;
+      width: 93%;
+      margin: auto;
+
+      background-image: linear-gradient(to right,
+          var(--paper-border-color) var(--paper-border-width),
+          transparent var(--paper-border-width)),
+        linear-gradient(to left,
+          var(--paper-border-color) var(--paper-border-width),
+          transparent var(--paper-border-width)),
+        linear-gradient(to bottom,
+          var(--paper-border-color) var(--paper-border-width),
+          transparent var(--paper-border-width)),
+        linear-gradient(to top,
+          var(--paper-border-color) var(--paper-border-width),
+          transparent var(--paper-border-width)),
+        radial-gradient(var(--paper-color) var(--paper-shadow-size), var(--paper-color-dark) var(--paper-shadow-size));
+      border: 0px solid var(--paper-border-color);
+
+      image-rendering: crisp-edges;
+
+      border-image: url("kmtt-menu-combined7.png");
+      border-image-slice: 150 206 123 206;
+      border-image-width: 120px 170px 100px 170px;
+      border-image-outset: 26px 5px 0px 5px;
+      border-image-repeat: stretch stretch;
+    }
+  </style>
+  <base href="C:\StarryShiliu\Software\Agent\data\scripts" />
+</head>
+
+<body>
+  <div class="container p-3">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 id="title" class="text-center">Kemono Teatime</h2>
+        <p id="description" class="text-center">
+          Configure text output and which hooks are enabled. <br />Hold the
+          <code>Ctrl</code> key while clicking on hooks to toggle them
+          individually. <br />Press <code>Ctrl + A</code> after clicking on a
+          hooks box to enable all hooks in it. <br />Check Agent's console
+          output to see each text's corresponding hook.
+        </p>
+        <div id="options">
+          <div class="form-check mb-2">
+            <input id="config_singleSentence" class="form-check-input" type="checkbox" role="switch" /><label
+              class="form-check-label" for="config_singleSentence">Single-line sentences</label><small
+              class="form-text text-muted">Attempt to convert sentences that span multiple lines into a
+              single line. Useful for external apps that need to parse
+              sentences. Disable if you want to retain the text's original
+              formatting.</small>
+          </div>
+          <div class="form-group mb-2">
+            <label for="config_hooksEnabledCount">Number of hooks enabled</label><input id="config_hooksEnabledCount"
+              class="form-control" readonly="" type="text" />
+          </div>
+          <div class="form-group mb-2">
+            <label for="config_selectedHook">Display character count from...</label><select id="config_selectedHook"
+              class="custom-select">
+              <option value="AreaNameBanner">AreaNameBanner</option>
+              <option value="BattleAction">BattleAction</option>
+              <option value="BattleActionEnemySpecial">
+                BattleActionEnemySpecial
+              </option>
+              <option value="BattleActionSpecial">BattleActionSpecial</option>
+              <option value="BattleEnemyName">BattleEnemyName</option>
+              <option value="BattleSkillInfo1">BattleSkillInfo1</option>
+              <option value="BattleSkillInfo2">BattleSkillInfo2</option>
+              <option value="Choice">Choice</option>
+              <option value="CraftRecipeMaterial1">
+                CraftRecipeMaterial1
+              </option>
+              <option value="CraftRecipeMaterial2">
+                CraftRecipeMaterial2
+              </option>
+              <option value="CraftRecipeName">CraftRecipeName</option>
+              <option value="CraftTransferTraitInfo">
+                CraftTransferTraitInfo
+              </option>
+              <option value="DMakerMaterialCategory">
+                DMakerMaterialCategory
+              </option>
+              <option value="DMakerMaterialTrait">DMakerMaterialTrait</option>
+              <option value="DialogueName">DialogueName</option>
+              <option value="DialogueText">DialogueText</option>
+              <option value="EncyclopediaDialogue">
+                EncyclopediaDialogue
+              </option>
+              <option value="EncyclopediaEffectInfo">
+                EncyclopediaEffectInfo
+              </option>
+              <option value="EncyclopediaEffectName">
+                EncyclopediaEffectName
+              </option>
+              <option value="EncyclopediaEnemyName">
+                EncyclopediaEnemyName
+              </option>
+              <option value="EncyclopediaFacilityName">
+                EncyclopediaFacilityName
+              </option>
+              <option value="EncyclopediaFieldName">
+                EncyclopediaFieldName
+              </option>
+              <option value="EncyclopediaHelpInfo">
+                EncyclopediaHelpInfo
+              </option>
+              <option value="EncyclopediaHelpName">
+                EncyclopediaHelpName
+              </option>
+              <option value="EncyclopediaItemName">
+                EncyclopediaItemName
+              </option>
+              <option value="EncyclopediaRecipeCategory">
+                EncyclopediaRecipeCategory
+              </option>
+              <option value="EncyclopediaRecipeCompleteName">
+                EncyclopediaRecipeCompleteName
+              </option>
+              <option value="EncyclopediaRecipeCondition">
+                EncyclopediaRecipeCondition
+              </option>
+              <option value="EncyclopediaRecipeIncompleteName">
+                EncyclopediaRecipeIncompleteName
+              </option>
+              <option value="EncyclopediaRecipeMaterial1">
+                EncyclopediaRecipeMaterial1
+              </option>
+              <option value="EncyclopediaRecipeMaterial2">
+                EncyclopediaRecipeMaterial2
+              </option>
+              <option value="EncyclopediaTraitInfo">
+                EncyclopediaTraitInfo
+              </option>
+              <option value="EncyclopediaTraitName">
+                EncyclopediaTraitName
+              </option>
+              <option value="EventInfo">EventInfo</option>
+              <option value="EventName">EventName</option>
+              <option value="EventObjective">EventObjective</option>
+              <option value="ExtraSoundRoomInfo">ExtraSoundRoomInfo</option>
+              <option value="ExtraSoundRoomName">ExtraSoundRoomName</option>
+              <option value="ItemName">ItemName</option>
+              <option value="MainMenuDialogue">MainMenuDialogue</option>
+              <option value="MaterialCategory">MaterialCategory</option>
+              <option value="MaterialEffect">MaterialEffect</option>
+              <option value="MaterialQuality">MaterialQuality</option>
+              <option value="MaterialTrait">MaterialTrait</option>
+              <option value="NotificationBanner">NotificationBanner</option>
+              <option value="QuestEnemyName">QuestEnemyName</option>
+              <option value="QuestInfo">QuestInfo</option>
+              <option value="QuestItemName">QuestItemName</option>
+              <option value="QuestName">QuestName</option>
+              <option value="RecipeMaterial1">RecipeMaterial1</option>
+              <option value="RecipeMaterial2">RecipeMaterial2</option>
+              <option value="RecipeName">RecipeName</option>
+              <option value="RecipeObtainedName">RecipeObtainedName</option>
+              <option value="RelatedRecipe">RelatedRecipe</option>
+              <option value="RumorKnownInfo">RumorKnownInfo</option>
+              <option value="RumorName">RumorName</option>
+              <option value="RumorTypeName">RumorTypeName</option>
+              <option value="RumorUnknownInfo">RumorUnknownInfo</option>
+              <option value="SideDialogue">SideDialogue</option>
+              <option value="SkillObtained">SkillObtained</option>
+              <option value="StatusAbilityInfo">StatusAbilityInfo</option>
+              <option value="StatusSkillInfo">StatusSkillInfo</option>
+              <option value="StatusSkillName">StatusSkillName</option>
+              <option value="SynthesisTransferTraitInfo">
+                SynthesisTransferTraitInfo
+              </option>
+              <option value="TownMapAreaName">TownMapAreaName</option>
+              <option value="WorldMapAreaName">
+                WorldMapAreaName
+              </option>
+            </select><small class="form-text text-muted">Select a hook to display its character count.</small>
+          </div>
+          <div class="form-group mb-2">
+            <label for="config_selectedHookCharacterCount">Character count for selected hook</label><input
+              id="config_selectedHookCharacterCount" class="form-control" readonly="" type="number" /><small
+              class="form-text text-muted">Displays the total number of characters outputted by the
+              selected hook. <br />Resets with each session.</small>
+          </div>
+          <div class="form-group mb-2">
+            <label for="config_hooksMain">Main Hooks</label><select id="config_hooksMain" class="custom-select"
+              multiple="multiple">
+              <option value="DialogueName">DialogueName</option>
+              <option value="DialogueText">DialogueText</option>
+              <option value="Choice">Choice</option>
+            </select><small class="form-text text-muted">Dialogue during cutscenes and choices.</small>
+          </div>
+          <div class="form-group mb-2">
+            <label for="config_hooksOverworld">Overworld Hooks</label><select id="config_hooksOverworld"
+              class="custom-select" multiple="multiple">
+              <option value="NotificationBanner">NotificationBanner</option>
+              <option value="AreaNameBanner">AreaNameBanner</option>
+              <option value="SideDialogue">SideDialogue</option>
+              <option value="BattleEnemyName">BattleEnemyName</option>
+              <option value="BattleSkillInfo1">BattleSkillInfo1</option>
+              <option value="BattleSkillInfo2">BattleSkillInfo2</option>
+              <option value="BattleAction">BattleAction</option>
+              <option value="BattleActionSpecial">BattleActionSpecial</option>
+              <option value="BattleActionEnemySpecial">
+                BattleActionEnemySpecial
+              </option>
+              <option value="SkillObtained">SkillObtained</option>
+            </select><small class="form-text text-muted">Texts that occur in the overworld, such as enemy skill names
+              and area banners.</small>
+          </div>
+          <div class="form-group mb-2">
+            <label for="config_hooksMenu">Menu Hooks</label><select id="config_hooksMenu" class="custom-select"
+              multiple="multiple">
+              <option value="WorldMapAreaName">WorldMapAreaName</option>
+              <option value="TownMapAreaName">TownMapAreaName</option>
+              <option value="MainMenuDialogue">MainMenuDialogue</option>
+              <option value="EventName">EventName</option>
+              <option value="EventInfo">EventInfo</option>
+              <option value="QuestName">QuestName</option>
+              <option value="QuestEnemyName">QuestEnemyName</option>
+              <option value="QuestItemName">QuestItemName</option>
+              <option value="QuestInfo">QuestInfo</option>
+              <option value="RumorName">RumorName</option>
+              <option value="RumorTypeName">RumorTypeName</option>
+              <option value="RumorKnownInfo">RumorKnownInfo</option>
+              <option value="RumorUnknownInfo">RumorUnknownInfo</option>
+              <option value="EventObjective">EventObjective</option>
+              <option value="StatusSkillName">StatusSkillName</option>
+              <option value="StatusSkillInfo">StatusSkillInfo</option>
+              <option value="StatusAbilityInfo">StatusAbilityInfo</option>
+              <option value="ItemName">ItemName</option>
+              <option value="RecipeName">RecipeName</option>
+              <option value="RecipeObtainedName">RecipeObtainedName</option>
+              <option value="RecipeMaterial1">RecipeMaterial1</option>
+              <option value="RecipeMaterial2">RecipeMaterial2</option>
+              <option value="MaterialQuality">MaterialQuality</option>
+              <option value="MaterialEffect">MaterialEffect</option>
+              <option value="MaterialTrait">MaterialTrait</option>
+              <option value="MaterialCategory">MaterialCategory</option>
+              <option value="RelatedRecipe">RelatedRecipe</option>
+              <option value="SynthesisTransferTraitInfo">
+                SynthesisTransferTraitInfo
+              </option>
+              <option value="CraftTransferTraitInfo">
+                CraftTransferTraitInfo
+              </option>
+              <option value="CraftRecipeName">CraftRecipeName</option>
+              <option value="CraftRecipeMaterial1">
+                CraftRecipeMaterial1
+              </option>
+              <option value="CraftRecipeMaterial2">
+                CraftRecipeMaterial2
+              </option>
+              <option value="DMakerMaterialCategory">
+                DMakerMaterialCategory
+              </option>
+              <option value="DMakerMaterialTrait">
+                DMakerMaterialTrait
+              </option>
+            </select><small class="form-text text-muted">Menu texts such as recipes, quests, and more.</small>
+          </div>
+          <div class="form-group mb-2">
+            <label for="config_hooksEncyclopedia">Encyclopedia Hooks</label><select id="config_hooksEncyclopedia"
+              class="custom-select" multiple="multiple">
+              <option value="EncyclopediaItemName">
+                EncyclopediaItemName
+              </option>
+              <option value="EncyclopediaFacilityName">
+                EncyclopediaFacilityName
+              </option>
+              <option value="EncyclopediaFieldName">
+                EncyclopediaFieldName
+              </option>
+              <option value="EncyclopediaEnemyName">
+                EncyclopediaEnemyName
+              </option>
+              <option value="EncyclopediaDialogue">
+                EncyclopediaDialogue
+              </option>
+              <option value="EncyclopediaEffectName">
+                EncyclopediaEffectName
+              </option>
+              <option value="EncyclopediaEffectInfo">
+                EncyclopediaEffectInfo
+              </option>
+              <option value="EncyclopediaTraitName">
+                EncyclopediaTraitName
+              </option>
+              <option value="EncyclopediaTraitInfo">
+                EncyclopediaTraitInfo
+              </option>
+              <option value="EncyclopediaHelpName">
+                EncyclopediaHelpName
+              </option>
+              <option value="EncyclopediaHelpInfo">
+                EncyclopediaHelpInfo
+              </option>
+              <option value="EncyclopediaRecipeCompleteName">
+                EncyclopediaRecipeCompleteName
+              </option>
+              <option value="EncyclopediaRecipeIncompleteName">
+                EncyclopediaRecipeIncompleteName
+              </option>
+              <option value="EncyclopediaRecipeCondition">
+                EncyclopediaRecipeCondition
+              </option>
+              <option value="EncyclopediaRecipeCategory">
+                EncyclopediaRecipeCategory
+              </option>
+              <option value="EncyclopediaRecipeMaterial1">
+                EncyclopediaRecipeMaterial1
+              </option>
+              <option value="EncyclopediaRecipeMaterial2">
+                EncyclopediaRecipeMaterial2
+              </option>
+              <option value="ExtraSoundRoomName">ExtraSoundRoomName</option>
+              <option value="ExtraSoundRoomInfo">
+                ExtraSoundRoomInfo
+              </option>
+            </select><small class="form-text text-muted">Encyclopedia texts.</small>
           </div>
         </div>
       </div>
     </div>
-    <small id="loaded"></small>
-    <div
-      id="info"
-      style="display: none"
-      class="alert alert-info mt-3"
-      role="alert"
-    ></div>
-    <div
-      id="warn"
-      style="display: none"
-      class="alert alert-warning mt-3"
-      role="alert"
-    ></div>
-    <div
-      id="success"
-      style="display: none"
-      class="alert alert-success mt-3"
-      role="alert"
-    ></div>
-    <div
-      id="error"
-      style="display: none"
-      class="alert alert-danger mt-3"
-      role="alert"
-    ></div>
-    <script>
-      // Doesn't work :(
-      // window.addEventListener('error', (e) => error('An error occured in the UI: ' + e.error));
+  </div>
+  <small id="loaded"></small>
+  <div id="info" style="display: none" class="alert alert-info mt-3" role="alert"></div>
+  <div id="warn" style="display: none" class="alert alert-warning mt-3" role="alert"></div>
+  <div id="success" style="display: none" class="alert alert-success mt-3" role="alert"></div>
+  <div id="error" style="display: none" class="alert alert-danger mt-3" role="alert"></div>
+  <script>
+    // Doesn't work :(
+    // window.addEventListener('error', (e) => error('An error occured in the UI: ' + e.error));
 
-      let storageEnabled = false;
-      let storageKey = null;
-      const titleElement = document.getElementById("title");
-      const descElement = document.getElementById("description");
-      const optionsElement = document.getElementById("options");
-      const alertTimeouts = {};
-      const alertElements = {
-        info: document.getElementById("info"),
-        error: document.getElementById("error"),
-        warn: document.getElementById("warn"),
-        success: document.getElementById("success"),
-      };
+    let storageEnabled = false;
+    let storageKey = null;
+    const titleElement = document.getElementById("title");
+    const descElement = document.getElementById("description");
+    const optionsElement = document.getElementById("options");
+    const alertTimeouts = {};
+    const alertElements = {
+      info: document.getElementById("info"),
+      error: document.getElementById("error"),
+      warn: document.getElementById("warn"),
+      success: document.getElementById("success"),
+    };
 
-      // handle configuration changes from the script
-      rpc.on("changed", (id, value) => {
-        if (setConfig(id, value)) {
-          // no need to notify the script since this
-          // came from the script.
-          onChange({ id }, value, false);
+    // handle configuration changes from the script
+    rpc.on("changed", (id, value) => {
+      if (setConfig(id, value)) {
+        // no need to notify the script since this
+        // came from the script.
+        onChange({ id }, value, false);
+      }
+    });
+
+    // handle incoming alerts
+    rpc.on("alert", alert);
+
+    function updateStorage(id, value) {
+      if (!storageEnabled) {
+        return;
+      }
+
+      const json = localStorage.getItem(storageKey) || "{}";
+      const config = JSON.parse(json);
+      config[id] = value;
+      localStorage.setItem(storageKey, JSON.stringify(config));
+    }
+
+    function loadStorage() {
+      if (!storageEnabled) {
+        return;
+      }
+
+      const json = localStorage.getItem(storageKey) || "{}";
+      const config = JSON.parse(json);
+      for (const key of Object.keys(config)) {
+        if (setConfig(key, config[key])) {
+          // notify the script
+          onChange({ id: key }, config[key], true, false);
         }
+      }
+    }
+
+    // unused but this function can be used to load an external CSS file
+    function addStyle(file) {
+      const link = document.createElement("link");
+      link.href = window.location.href.replace(
+        "resources/app/dist/index.html",
+        "data/scripts/" + file
+      );
+      link.rel = "stylesheet";
+      // use prepend so the stylesheet is above our styles
+      document.head.prepend(link);
+    }
+
+    function onChange(option, value, notify = true, showAlert = true) {
+      if (!option.ephemeral) {
+        updateStorage(option.id, value);
+      }
+      if (!notify) {
+        return;
+      }
+
+      rpc.exports.changed(option.id, value).then(() => {
+        if (!showAlert) return;
+        const text = (option.label || option.id) + " updated!";
+        alert("info", text, 1000);
       });
+    }
 
-      // handle incoming alerts
-      rpc.on("alert", alert);
-
-      function updateStorage(id, value) {
-        if (!storageEnabled) {
-          return;
-        }
-
-        const json = localStorage.getItem(storageKey) || "{}";
-        const config = JSON.parse(json);
-        config[id] = value;
-        localStorage.setItem(storageKey, JSON.stringify(config));
-      }
-
-      function loadStorage() {
-        if (!storageEnabled) {
-          return;
-        }
-
-        const json = localStorage.getItem(storageKey) || "{}";
-        const config = JSON.parse(json);
-        for (const key of Object.keys(config)) {
-          if (setConfig(key, config[key])) {
-            // notify the script
-            onChange({ id: key }, config[key], true, false);
-          }
-        }
-      }
-
-      // unused but this function can be used to load an external CSS file
-      function addStyle(file) {
-        const link = document.createElement("link");
-        link.href = window.location.href.replace(
-          "resources/app/dist/index.html",
-          "data/scripts/" + file
-        );
-        link.rel = "stylesheet";
-        // use prepend so the stylesheet is above our styles
-        document.head.prepend(link);
-      }
-
-      function onChange(option, value, notify = true, showAlert = true) {
-        if (!option.ephemeral) {
-          updateStorage(option.id, value);
-        }
-        if (!notify) {
-          return;
-        }
-
-        rpc.exports.changed(option.id, value).then(() => {
-          if (!showAlert) return;
-          const text = (option.label || option.id) + " updated!";
-          alert("info", text, 1000);
-        });
-      }
-
-      function setConfig(id, value) {
-        if (id === undefined) {
-          return false;
-        }
-
-        const element = document.getElementById("config_" + id);
-        if (element === undefined) {
-          error("Could not find element with ID " + id);
-          return false;
-        }
-
-        const tag = element.tagName.toLowerCase();
-
-        // handle buttons
-        if (tag === "button") {
-          // do nothing
-          return false;
-        }
-
-        // handle checkboxes, numbers, and text
-        if (tag === "input") {
-          switch (element.type) {
-            case "checkbox":
-              element.checked = value;
-              return true;
-            case "number":
-            case "text":
-              element.value = value;
-              return true;
-            default:
-              error(
-                "Could not handle update for " +
-                  tag +
-                  " with type " +
-                  element.type +
-                  "!"
-              );
-          }
-          return false;
-        }
-
-        // handle selects
-        if (tag === "select") {
-          const options = element.getElementsByTagName("option");
-          for (const option of options) {
-            const multiple = typeof value !== "string";
-            option.selected = multiple
-              ? value.includes(option.value)
-              : option.value === value;
-          }
-          return true;
-        }
-
-        // unsupported element
-        error("Could not handle update for tag " + tag + "!");
+    function setConfig(id, value) {
+      if (id === undefined) {
         return false;
       }
 
-      function addHelp(element, option) {
-        if (!option.help) {
-          return;
+      const element = document.getElementById("config_" + id);
+      if (element === undefined) {
+        error("Could not find element with ID " + id);
+        return false;
+      }
+
+      const tag = element.tagName.toLowerCase();
+
+      // handle buttons
+      if (tag === "button") {
+        // do nothing
+        return false;
+      }
+
+      // handle checkboxes, numbers, and text
+      if (tag === "input") {
+        switch (element.type) {
+          case "checkbox":
+            element.checked = value;
+            return true;
+          case "number":
+          case "text":
+            element.value = value;
+            return true;
+          default:
+            error(
+              "Could not handle update for " +
+              tag +
+              " with type " +
+              element.type +
+              "!"
+            );
         }
-
-        // don't add help text for inline checkboxes
-        if (option.type === "checkbox" && option.inline === true) {
-          return;
-        }
-
-        const help = document.createElement("small");
-        help.className = "form-text text-muted";
-        help.innerHTML = option.help;
-        element.append(help);
+        return false;
       }
 
-      function addOption(element, option) {
-        const div = document.createElement("div");
-        div.className = "form-group mb-2";
-        const label = document.createElement("label");
-        label.innerText = option.label;
-        label.htmlFor = element.id;
-        div.append(label);
-        div.append(element);
-        addHelp(div, option);
-        optionsElement.append(div);
-      }
-
-      function addTextField(option) {
-        const input = document.createElement("input");
-        input.id = "config_" + option.id;
-        input.className = "form-control";
-        input.readOnly = option.readOnly === true;
-        if (option.type === "number") {
-          input.type = "number";
-          input.value = option.defaultValue || 0;
-          input.onchange = (e) => onChange(option, parseInt(e.target.value));
-        } else if (option.type === "text") {
-          input.type = "text";
-          input.value = option.defaultValue || "";
-          input.onchange = (e) => onChange(option, e.target.value);
-        } else {
-          error("Unknown input type: " + option.type);
-          return;
-        }
-        addOption(input, option);
-      }
-
-      function addSelect(option) {
-        const select = document.createElement("select");
-        select.id = "config_" + option.id;
-        select.className = "custom-select";
-        select.onchange = function () {
-          const selected = option.multiple
-            ? [...this.selectedOptions].map((o) => o.value)
-            : this.value;
-          onChange(option, selected);
-        };
-
-        if (option.multiple === true) {
-          select.setAttribute("multiple", "multiple");
-        }
-
-        // add the options
-        for (const opt of option.options) {
-          const element = document.createElement("option");
-          element.value = opt.value;
-          element.innerText = opt.text;
-          element.selected =
-            opt.value === option.defaultValue ||
-            (option.multiple && opt.selected);
-          select.appendChild(element);
-        }
-
-        addOption(select, option);
-      }
-
-      function addCheckbox(option) {
-        const div = document.createElement("div");
-        div.className = "form-check mb-2";
-
-        const input = document.createElement("input");
-        input.id = "config_" + option.id;
-        input.className = "form-check-input";
-        input.type = "checkbox";
-        input.role = "switch";
-        input.checked = option.defaultValue || false;
-        input.onchange = (e) => onChange(option, e.currentTarget.checked);
-
-        const label = document.createElement("label");
-        label.className = "form-check-label";
-        label.innerText = option.label;
-        label.htmlFor = input.id;
-
-        div.appendChild(input);
-        div.appendChild(label);
-        addHelp(div, option);
-        optionsElement.appendChild(div);
-      }
-
-      function addButton(option) {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.id = "config_" + option.id;
-        button.className = "btn btn-success btn-block mt-2"; // success to match Agent's button
-        button.innerText = option.label;
-        button.onclick = () => onChange(option, undefined);
-
-        optionsElement.appendChild(button);
-      }
-
-      // display an error in the UI
-      function error(message) {
-        alert("error", message);
-      }
-
-      // display an alert in the UI (info, warn, error)
-      function alert(type, message, duration = 5000) {
-        if (message === undefined) return;
-        const element = alertElements[type];
-        if (element === undefined) return;
-
-        element.innerText = message;
-        element.style.display = "";
-        clearTimeout(alertTimeouts[type]);
-        alertTimeouts[type] = setTimeout(
-          () => (element.style.display = "none"),
-          duration
-        );
-      }
-
-      function loaded() {
-        document.getElementById("loading").remove();
-      }
-
-      // call script to get title, description, and configuration
-      rpc.exports.title().then((title) => (titleElement.innerHTML = title));
-      rpc.exports.description().then((desc) => (descElement.innerHTML = desc));
-      rpc.exports.options().then((options) => {
+      // handle selects
+      if (tag === "select") {
+        const options = element.getElementsByTagName("option");
         for (const option of options) {
-          switch (option.type) {
-            case "select":
-              addSelect(option);
-              break;
-            case "checkbox":
-              addCheckbox(option);
-              break;
-            case "number":
-            case "text":
-              addTextField(option);
-              break;
-            case "button":
-              addButton(option);
-              break;
-            default:
-              error('No handler for "' + option.type + '" option type!');
-          }
+          const multiple = typeof value !== "string";
+          option.selected = multiple
+            ? value.includes(option.value)
+            : option.value === value;
         }
+        return true;
+      }
 
-        loaded();
+      // unsupported element
+      error("Could not handle update for tag " + tag + "!");
+      return false;
+    }
 
-        rpc.exports.storage().then((storage) => {
-          if (!storage.enabled) return;
+    function addHelp(element, option) {
+      if (!option.help) {
+        return;
+      }
 
-          storageKey = "config-" + storage.key;
-          storageEnabled = true;
-          console.log("Enabling storage with key " + storageKey + "...");
-          loadStorage();
-        });
+      // don't add help text for inline checkboxes
+      if (option.type === "checkbox" && option.inline === true) {
+        return;
+      }
+
+      const help = document.createElement("small");
+      help.className = "form-text text-muted";
+      help.innerHTML = option.help;
+      element.append(help);
+    }
+
+    function addOption(element, option) {
+      const div = document.createElement("div");
+      div.className = "form-group mb-2";
+      const label = document.createElement("label");
+      label.innerText = option.label;
+      label.htmlFor = element.id;
+      div.append(label);
+      div.append(element);
+      addHelp(div, option);
+      optionsElement.append(div);
+    }
+
+    function addTextField(option) {
+      const input = document.createElement("input");
+      input.id = "config_" + option.id;
+      input.className = "form-control";
+      input.readOnly = option.readOnly === true;
+      if (option.type === "number") {
+        input.type = "number";
+        input.value = option.defaultValue || 0;
+        input.onchange = (e) => onChange(option, parseInt(e.target.value));
+      } else if (option.type === "text") {
+        input.type = "text";
+        input.value = option.defaultValue || "";
+        input.onchange = (e) => onChange(option, e.target.value);
+      } else {
+        error("Unknown input type: " + option.type);
+        return;
+      }
+      addOption(input, option);
+    }
+
+    function addSelect(option) {
+      const select = document.createElement("select");
+      select.id = "config_" + option.id;
+      select.className = "custom-select";
+      select.onchange = function () {
+        const selected = option.multiple
+          ? [...this.selectedOptions].map((o) => o.value)
+          : this.value;
+        onChange(option, selected);
+      };
+
+      if (option.multiple === true) {
+        select.setAttribute("multiple", "multiple");
+      }
+
+      // add the options
+      for (const opt of option.options) {
+        const element = document.createElement("option");
+        element.value = opt.value;
+        element.innerText = opt.text;
+        element.selected =
+          opt.value === option.defaultValue ||
+          (option.multiple && opt.selected);
+        select.appendChild(element);
+      }
+
+      addOption(select, option);
+    }
+
+    function addCheckbox(option) {
+      const div = document.createElement("div");
+      div.className = "form-check mb-2";
+
+      const input = document.createElement("input");
+      input.id = "config_" + option.id;
+      input.className = "form-check-input";
+      input.type = "checkbox";
+      input.role = "switch";
+      input.checked = option.defaultValue || false;
+      input.onchange = (e) => onChange(option, e.currentTarget.checked);
+
+      const label = document.createElement("label");
+      label.className = "form-check-label";
+      label.innerText = option.label;
+      label.htmlFor = input.id;
+
+      div.appendChild(input);
+      div.appendChild(label);
+      addHelp(div, option);
+      optionsElement.appendChild(div);
+    }
+
+    function addButton(option) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.id = "config_" + option.id;
+      button.className = "btn btn-success btn-block mt-2"; // success to match Agent's button
+      button.innerText = option.label;
+      button.onclick = () => onChange(option, undefined);
+
+      optionsElement.appendChild(button);
+    }
+
+    // display an error in the UI
+    function error(message) {
+      alert("error", message);
+    }
+
+    // display an alert in the UI (info, warn, error)
+    function alert(type, message, duration = 5000) {
+      if (message === undefined) return;
+      const element = alertElements[type];
+      if (element === undefined) return;
+
+      element.innerText = message;
+      element.style.display = "";
+      clearTimeout(alertTimeouts[type]);
+      alertTimeouts[type] = setTimeout(
+        () => (element.style.display = "none"),
+        duration
+      );
+    }
+
+    function loaded() {
+      document.getElementById("loading").remove();
+    }
+
+    // call script to get title, description, and configuration
+    rpc.exports.title().then((title) => (titleElement.innerHTML = title));
+    rpc.exports.description().then((desc) => (descElement.innerHTML = desc));
+    rpc.exports.options().then((options) => {
+      for (const option of options) {
+        switch (option.type) {
+          case "select":
+            addSelect(option);
+            break;
+          case "checkbox":
+            addCheckbox(option);
+            break;
+          case "number":
+          case "text":
+            addTextField(option);
+            break;
+          case "button":
+            addButton(option);
+            break;
+          default:
+            error('No handler for "' + option.type + '" option type!');
+        }
+      }
+
+      loaded();
+
+      rpc.exports.storage().then((storage) => {
+        if (!storage.enabled) return;
+
+        storageKey = "config-" + storage.key;
+        storageEnabled = true;
+        console.log("Enabling storage with key " + storageKey + "...");
+        loadStorage();
       });
-    </script>
-  </body>
+    });
+  </script>
+</body>
+
 </html>
