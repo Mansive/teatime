@@ -43,7 +43,7 @@
       --paper-color-dark: #fdebbd;
       --paper-border-color: #f4c389;
       --paper-border-width: 8px;
-      --paper-shadow-size: calc(75%);
+      --paper-shadow-size: 70%;
 
       cursor: url("kmtt-cursor-pointer.svg"), auto;
     }
@@ -65,23 +65,15 @@
       animation: pan 5s linear reverse infinite;
     }
 
-    /* .container {
-        position: relative;
-      } */
+    @keyframes pan {
+      from {
+        background-position: 0px 0%;
+      }
 
-    /* .container::before {
-        content: "";
-        position: absolute;
-        top: 1%;
-        left: -2.5%;
-        right: 0px;
-        bottom: 0px;
-        width: 105%;
-        background-size: 50px;
-        background-color: var(--wood-edge-color);
-        border: 2px solid black;
-        border-radius: 1%;
-      } */
+      to {
+        background-position: 100px 85px;
+      }
+    }
 
     /* wood board */
     .row {
@@ -246,13 +238,6 @@
 
       border: 2px solid black;
       border-radius: 1%;
-
-      /* border-left: 8px solid var(--wood-edge-color);
-        border-right: 8px solid var(--wood-edge-color);
-        border-bottom: 12px solid var(--wood-edge-color);
-        border-top: 5px solid var(--wood-edge-color);
-        border-radius: 1%;
-        outline: 2px solid black; */
     }
 
     /* paper */
@@ -288,18 +273,6 @@
       border-image-width: 120px 170px 100px 170px;
       border-image-outset: 26px 5px 0px 5px;
       border-image-repeat: stretch stretch;
-
-      /* outline: 8px solid var(--paper-border-color); */
-    }
-
-    @keyframes pan {
-      from {
-        background-position: 0px 0%;
-      }
-
-      to {
-        background-position: 100px 85px;
-      }
     }
   </style>
   <base href="C:\StarryShiliu\Software\Agent\data\scripts" />
