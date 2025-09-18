@@ -1,0 +1,17 @@
+background-pattern-css.txt: 622 bytes
+
+kmtt-background-pattern.png: 433 bytes
+background-pattern-image-original.txt: 602 bytes
+
+kmtt-background-pattern-min.png: 189 bytes
+background-pattern-image-min.txt: 274 bytes
+
+Used squoosh to optimize kmtt-background-pattern.png
+Settings:
+- OxiPNG encoder
+- Effort 5
+- Reduce palette colors from 256 to 2
+
+Can't see any difference between pre and post optimization images; they actually look the exact same.
+In conclusion, pixel art PNGs can be smaller than a bunch of CSS even after being encoded into Base64.
+That's kinda crazy.

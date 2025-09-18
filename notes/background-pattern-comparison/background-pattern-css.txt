@@ -1,0 +1,12 @@
+background-color: var(--background-color);
+background-size: var(--background-size), var(--background-size);
+background-image: linear-gradient(var(--stripe-angle1),
+  var(--primary-stripe-rgb) var(--stripe-point1),
+  var(--secondary-stripe-rgb) var(--stripe-point1),
+  var(--secondary-stripe-rgb) var(--stripe-point2),
+  var(--primary-stripe-rgb) var(--stripe-point2)),
+linear-gradient(var(--stripe-angle2),
+  var(--primary-stripe-rgb) var(--stripe-point1),
+  var(--secondary-stripe-rgb) var(--stripe-point1),
+  var(--secondary-stripe-rgb) var(--stripe-point2),
+  var(--primary-stripe-rgb) var(--stripe-point2));
