@@ -65,29 +65,18 @@
     }
 
     body {
-      margin: 0px;
-      background-color: var(--background-color);
-      background-size: var(--background-size), var(--background-size);
-      background-image: linear-gradient(var(--stripe-angle1),
-          var(--primary-stripe-rgb) var(--stripe-point1),
-          var(--secondary-stripe-rgb) var(--stripe-point1),
-          var(--secondary-stripe-rgb) var(--stripe-point2),
-          var(--primary-stripe-rgb) var(--stripe-point2)),
-        linear-gradient(var(--stripe-angle2),
-          var(--primary-stripe-rgb) var(--stripe-point1),
-          var(--secondary-stripe-rgb) var(--stripe-point1),
-          var(--secondary-stripe-rgb) var(--stripe-point2),
-          var(--primary-stripe-rgb) var(--stripe-point2));
-      animation: pan 5s linear reverse infinite;
+      background-image: url("kmtt-background-pattern.png");
+      animation: pan 3s linear reverse infinite;
     }
 
     @keyframes pan {
       from {
-        background-position: 0px 0%;
+        background-position: 0px 0px;
       }
 
       to {
-        background-position: 100px 85px;
+        /* png is 44x76, move twice the width */
+        background-position: 88px 76px;
       }
     }
 
