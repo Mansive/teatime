@@ -93,7 +93,7 @@
 
     /* wood board */
     .row {
-      height: 80vh;
+      z-index: -1;
       position: relative;
       background-image:
         /* insets */
@@ -155,11 +155,10 @@
         /* top edge */
         linear-gradient(to bottom,
           var(--wood-edge-color) var(--wood-plank-top-width),
-          transparent 0.8%),
+          transparent var(--wood-plank-top-width)),
         /* bottom edge */
         linear-gradient(to top,
-          var(--wood-edge-color) var(--wood-plank-bottom-width),
-          transparent 1.9%),
+          var(--wood-edge-color) var(--wood-plank-bottom-width)),
         /* wood grain */
         repeating-linear-gradient(to right,
           var(--wood-grain),
@@ -259,6 +258,7 @@
     /* paper */
     .row::after {
       content: "";
+      z-index: -1;
       position: absolute;
       top: 40px;
       left: 0px;
