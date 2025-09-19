@@ -64,21 +64,29 @@
       cursor: url("kmtt-cursor-pointer.svg"), auto;
     }
 
-    body {
+    body::before {
+      content: "";
+      position: fixed;
+      top: -76px;
+      left: -88px;
+      width: calc(100% + 88px);
+      height: calc(100% + 76px);
+      z-index: -1;
       background-image: url("kmtt-background-pattern.png");
       animation: pan 3s linear reverse infinite;
     }
 
     @keyframes pan {
       from {
-        background-position: 0px 0px;
+        transform: translate3d(0, 0, 0);
       }
 
       to {
         /* png is 44x76, move twice the width */
-        background-position: 88px 76px;
+        transform: translate3d(88px, 76px, 0);
       }
     }
+
 
     /* wood board */
     #options {

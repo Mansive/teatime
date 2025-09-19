@@ -3,7 +3,7 @@ const path = require("path");
 
 try {
   // Define the path to the image, assuming it's in the same directory
-  const imagePath = path.join(__dirname, "kmtt-menu-combined4-oxi.png");
+  const imagePath = path.join(__dirname, "kmtt-background-pattern-min.png");
 
   // Read the image file as a buffer
   const imageBuffer = fs.readFileSync(imagePath);
