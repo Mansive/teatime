@@ -19,6 +19,17 @@
       margin-bottom: 2em;
     }
 
+
+    @font-face {
+      font-family: "FusionPixel";
+      src: url("fusion-pixel-10px-monospaced-latin-latest.otf.woff2");
+    }
+
+    * {
+      font-family: "FusionPixel" !important;
+      text-rendering: geometricPrecision;
+    }
+
     :root {
       --background-size: 50px 85px;
       --background-color: #ffdbb5;
@@ -279,15 +290,24 @@
           var(--paper-border-color) var(--paper-border-width),
           transparent var(--paper-border-width)),
         radial-gradient(var(--paper-color) var(--paper-shadow-size), var(--paper-color-dark) var(--paper-shadow-size));
+
       border: 0px solid var(--paper-border-color);
-
-      image-rendering: crisp-edges;
-
       border-image: url("kmtt-menu-combined7.png");
       border-image-slice: 150 206 123 206;
       border-image-width: 120px 170px 100px 170px;
       border-image-outset: 26px 5px 0px 5px;
       border-image-repeat: stretch stretch;
+    }
+
+    /* option labels checkers */
+    .mb-2>label {
+      padding: 4px 16px;
+
+      border-image: url("kmtt-option-label-pattern.png");
+      border-image-slice: 8 8 4 4 fill;
+      border-image-width: 8px 8px 4px 4px;
+      border-image-outset: 0px 0px 0px 0px;
+      border-image-repeat: round round;
     }
   </style>
   <base href="C:\StarryShiliu\Software\Agent\data\scripts" />
@@ -307,8 +327,8 @@
         </p>
         <div id="options">
           <div class="form-check mb-2">
-            <input id="config_singleSentence" class="form-check-input" type="checkbox" role="switch" /><label
-              class="form-check-label" for="config_singleSentence">Single-line sentences</label><small
+            <input id="config_singleSentence" class="form-check-input" type="checkbox" role="switch" />
+            <label class="form-check-label" for="config_singleSentence">Single-line sentences</label><small
               class="form-text text-muted">Attempt to convert sentences that span multiple lines into a
               single line. Useful for external apps that need to parse
               sentences. Disable if you want to retain the text's original
