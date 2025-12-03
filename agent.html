@@ -28,6 +28,7 @@
     * {
       font-family: "FusionPixel" !important;
       text-rendering: geometricPrecision;
+      cursor: url("kmtt-cursor-handmin.svg"), auto;
     }
 
     :root {
@@ -72,7 +73,9 @@
       --paper-border-width: 8px;
       --paper-shadow-size: 70%;
 
-      cursor: url("kmtt-cursor-pointer.svg"), auto;
+      --label-font-color: #71363d;
+
+      font-size: 120%;
     }
 
     body::before {
@@ -83,7 +86,7 @@
       width: calc(100% + 88px);
       height: calc(100% + 76px);
       z-index: -1;
-      background-image: url("kmtt-background-pattern.png");
+      background-image: url("kmtt-background-pattern-min.png");
       animation: pan 3s linear reverse infinite;
     }
 
@@ -301,6 +304,8 @@
 
     /* option labels checkers */
     .mb-2>label {
+      color: var(--label-font-color);
+
       padding: 4px 16px;
 
       border-image: url("kmtt-option-label-pattern.png");
