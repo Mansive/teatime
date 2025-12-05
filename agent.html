@@ -22,13 +22,13 @@
 
     @font-face {
       font-family: "FusionPixel";
-      src: url("fusion-pixel-10px-monospaced-latin-latest.otf.woff2");
+      src: url("assets/fusion-pixel-10px-monospaced-latin-latest.otf.woff2");
     }
 
     * {
       font-family: "FusionPixel" !important;
       text-rendering: geometricPrecision;
-      cursor: url("kmtt-cursor-handmin-hyper.svg"), auto;
+      cursor: url("assets/kmtt-cursor-handmin-hyper.svg"), auto;
     }
 
     :root {
@@ -86,7 +86,7 @@
       width: calc(100% + 88px);
       height: calc(100% + 76px);
       z-index: -1;
-      background-image: url("kmtt-background-pattern-min.png");
+      background-image: url("assets/kmtt-background-pattern-min.png");
       animation: pan 3s linear reverse infinite;
     }
 
@@ -295,7 +295,7 @@
         radial-gradient(var(--paper-color) var(--paper-shadow-size), var(--paper-color-dark) var(--paper-shadow-size));
 
       border: 0px solid var(--paper-border-color);
-      border-image: url("kmtt-menu-combined7.png");
+      border-image: url("assets/kmtt-menu-combined7.png");
       border-image-slice: 150 206 123 206;
       border-image-width: 120px 170px 100px 170px;
       border-image-outset: 26px 5px 0px 5px;
@@ -308,12 +308,66 @@
 
       padding: 4px 16px;
 
-      border-image: url("kmtt-option-label-pattern.png");
+      border-image: url("assets/kmtt-option-label-pattern.png");
       border-image-slice: 8 8 4 4 fill;
       border-image-width: 8px 8px 4px 4px;
       border-image-outset: 0px 0px 0px 0px;
       border-image-repeat: round round;
     }
+
+    /* 
+    .form-check {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .form-check-label {
+      order: 1;
+      margin-right: auto;
+    }
+
+    .form-check-input[type="checkbox"] {
+      order: 2;
+      margin-left: 10px;
+      appearance: none;
+      width: 50px;
+      height: 24px;
+      border: 2px solid var(--wood-border-color);
+      border-radius: 4px;
+      cursor: pointer;
+      background-color: var(--paper-color);
+      position: relative;
+      pointer-events: auto !important;
+    }
+
+    .form-check .form-text {
+      order: 3;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .form-check-input[type="checkbox"]::after {
+      content: "off";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--wood-edge-color);
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .form-check-input[type="checkbox"]:checked {
+      background-color: var(--wood-color-dark);
+      border-color: var(--wood-edge-color);
+    }
+
+    .form-check-input[type="checkbox"]:checked::after {
+      content: "on";
+      color: var(--paper-color);
+    } */
   </style>
   <base href="C:\StarryShiliu\Software\Agent\data\scripts" />
 </head>
