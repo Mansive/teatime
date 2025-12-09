@@ -35,6 +35,24 @@
       cursor: url("assets/kmtt-cursor-hover-handmin.svg") 8 2, pointer;
     }
 
+    .mb-2>label {
+      position: relative;
+    }
+
+    .mb-2>label::before {
+      content: "";
+      background-image: url("assets/kmtt-option-label-fork-min.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: 30px;
+      height: 40px;
+      position: absolute;
+      /* left: -8px; */
+      /* bottom: 0; */
+      left: 13px;
+      transform: translate(-100%, 0);
+    }
+
     :root {
       --background-size: 50px 85px;
       --background-color: #ffdbb5;
@@ -269,7 +287,7 @@
 
       border: 2px solid black;
       border-radius: 1%;
-      padding: 12% 10%;
+      padding: 150px calc(1% + 60px);
     }
 
     /* paper */
@@ -300,7 +318,7 @@
 
       border: 0px solid var(--paper-border-color);
       border-image: url("assets/kmtt-menu-combined.png");
-      border-image-slice: 150 206 123 206;
+      border-image-slice: 151 206 123 206;
       border-image-width: 120px 170px 100px 170px;
       border-image-outset: 26px 5px 0px 5px;
       border-image-repeat: stretch stretch;
@@ -309,9 +327,8 @@
     /* option labels checkers */
     .mb-2>label {
       color: var(--label-font-color);
-
       padding: 4px 16px;
-
+      min-width: 50%;
       border-image: url("assets/kmtt-option-label-pattern.png");
       border-image-slice: 8 8 4 4 fill;
       border-image-width: 8px 8px 4px 4px;
