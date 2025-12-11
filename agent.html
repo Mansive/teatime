@@ -19,7 +19,6 @@
       margin-bottom: 2em;
     }
 
-
     @font-face {
       font-family: "FusionPixel";
       src: url("assets/fusion-pixel-10px-monospaced-latin-latest.otf.woff2");
@@ -33,24 +32,6 @@
 
     input[type="checkbox"]:hover {
       cursor: url("assets/kmtt-cursor-hover-handmin.svg") 8 2, pointer;
-    }
-
-    .mb-2>label {
-      position: relative;
-    }
-
-    .mb-2>label::before {
-      content: "";
-      background-image: url("assets/kmtt-option-label-fork-min.png");
-      background-size: contain;
-      background-repeat: no-repeat;
-      width: 30px;
-      height: 40px;
-      position: absolute;
-      /* left: -8px; */
-      /* bottom: 0; */
-      left: 13px;
-      transform: translate(-100%, 0);
     }
 
     :root {
@@ -94,6 +75,11 @@
       --paper-border-color: #f4c389;
       --paper-border-width: 8px;
       --paper-shadow-size: 70%;
+
+      --checkbox-corner-color: #e7aa84;
+      --checkbox-border-color: #c07f65;
+      --checkbox-border-bottom-color: var(--wood-color-light);
+      --checkbox-inner-color: #f4c094;
 
       --label-font-color: #71363d;
 
@@ -332,6 +318,25 @@
       border-image-repeat: stretch stretch;
     }
 
+    .mb-2>label {
+      position: relative;
+    }
+
+    /* fork */
+    .mb-2>label::before {
+      content: "";
+      background-image: url("assets/kmtt-option-label-fork-min.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: 30px;
+      height: 40px;
+      position: absolute;
+      /* left: -8px; */
+      /* bottom: 0; */
+      left: 13px;
+      transform: translate(-100%, 0);
+    }
+
     /* option labels checkers */
     .mb-2>label {
       color: var(--label-font-color);
@@ -356,11 +361,82 @@
       order: 1;
     }
 
-    .form-check-input {
+    .form-check-input[type="checkbox"] {
       order: 2;
-      position: static;
-      margin-top: 0;
-      margin-left: 0.5rem;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      background-color: var(--checkbox-inner-color);
+      margin: 4px;
+      position: relative;
+      margin-right: 5%;
+      box-shadow:
+        /* left, right, top edges and corners*/
+        -2px -2px 0 0 var(--checkbox-border-color),
+        2px -2px 0 0 var(--checkbox-border-color),
+        /* bottom edge and corners */
+        0 4px 0 0 var(--checkbox-border-bottom-color),
+        -2px 4px 0 0 var(--wood-color-light),
+        2px 4px 0 0 var(--wood-color-light);
+    }
+
+    .form-check-input[type="checkbox"]:checked::after {
+      content: "✔";
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--wood-color-dark);
+      font-size: 35px;
+      font-weight: bold;
+    }
+
+
+    /* Sparkle Particles on Click */
+    .form-check-input[type="checkbox"]::before {
+      content: url("assets/kmtt-effect-sparkle.png");
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 160px;
+      height: 128px;
+      display: block;
+      pointer-events: none;
+      z-index: 10;
+      opacity: 0;
+    }
+
+    .form-check-input[type="checkbox"]:checked::before {
+      animation: sparkle-checked 0.4s forwards;
+    }
+
+    .form-check-input[type="checkbox"]:not(:checked)::before {
+      animation: sparkle-unchecked 0.4s forwards;
+    }
+
+    @keyframes sparkle-checked {
+
+      0%,
+      99% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes sparkle-unchecked {
+
+      0%,
+      99% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
     }
 
     .form-text {
@@ -368,60 +444,6 @@
       /* ensure the text always goes to newline no matter the window or text size */
       width: 100%;
     }
-
-
-    /* .form-check {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .form-check-label {
-      order: 1;
-      margin-right: auto;
-    }
-
-    .form-check-input[type="checkbox"] {
-      order: 2;
-      margin-left: 10px;
-      appearance: none;
-      width: 50px;
-      height: 24px;
-      border: 2px solid var(--wood-border-color);
-      border-radius: 4px;
-      cursor: pointer;
-      background-color: var(--paper-color);
-      position: relative;
-      pointer-events: auto !important;
-    }
-
-    .form-check .form-text {
-      order: 3;
-      width: 100%;
-      margin-top: 8px;
-    } */
-
-    /* .form-check-input[type="checkbox"]::after {
-      content: "off";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: var(--wood-edge-color);
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    .form-check-input[type="checkbox"]:checked {
-      background-color: var(--wood-color-dark);
-      border-color: var(--wood-edge-color);
-    }
-
-    .form-check-input[type="checkbox"]:checked::after {
-      content: "on";
-      color: var(--paper-color);
-    }*/
   </style>
   <base href="C:\StarryShiliu\Software\Agent\data\scripts" />
 </head>
