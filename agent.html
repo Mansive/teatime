@@ -35,6 +35,11 @@
     }
 
     :root {
+      /* --splash-stripe-color1: #f4c094; */
+      /* --splash-stripe-color2: #ecad84; */
+      --splash-stripe-color1: #cb8a70;
+      --splash-stripe-color2: #c67c63;
+
       --background-size: 50px 85px;
       --background-color: #ffdbb5;
       --primary-stripe-rgb: #f7cba5;
@@ -84,6 +89,32 @@
       --label-font-color: #71363d;
 
       font-size: 120%;
+    }
+
+    :root::after,
+    :root::before {
+      content: "";
+      position: fixed;
+      pointer-events: none;
+      image-rendering: pixelated;
+      inset: 0;
+    }
+
+    :root::after {
+      z-index: 2;
+      background: no-repeat bottom/70% url("assets/kmtt-new-day-characters-min.webp"),
+        repeat-x top/11% url("assets/kmtt-new-day-curtain-min.webp"),
+        repeat-x bottom/13% url("assets/kmtt-new-day-floor.webp");
+    }
+
+    :root::before {
+      z-index: 1;
+      /* no outline */
+      /* background: no-repeat 50% 20%/70% url("assets/kmtt-logo-divided-min.webp"),  */
+      background: no-repeat 50% 20%/70% url("assets/kmtt-logo-divided.png"),
+        no-repeat center/100vh url("assets/kmtt-new-day-spotlight.png"),
+        repeating-linear-gradient(to right, var(--splash-stripe-color1), var(--splash-stripe-color1) 3%, var(--splash-stripe-color2) 3%, var(--splash-stripe-color2) 6%);
+      background-blend-mode: normal, color-dodge, normal;
     }
 
     body::before {
