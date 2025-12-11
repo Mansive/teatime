@@ -94,7 +94,7 @@
       width: calc(100% + 88px);
       height: calc(100% + 76px);
       z-index: -1;
-      background-image: url("assets/kmtt-background-pattern-min.png");
+      background-image: url("assets/kmtt-background-pattern-min.webp");
       animation: pan 3s linear reverse infinite;
     }
 
@@ -311,7 +311,7 @@
         radial-gradient(var(--paper-color) var(--paper-shadow-size), var(--paper-color-dark) var(--paper-shadow-size));
 
       border: 0px solid var(--paper-border-color);
-      border-image: url("assets/kmtt-menu-combined.png");
+      border-image: url("assets/kmtt-menu-combined-min.webp");
       border-image-slice: 151 206 123 206;
       border-image-width: 120px 170px 100px 170px;
       border-image-outset: 26px 5px 0px 5px;
@@ -325,7 +325,7 @@
     /* fork */
     .mb-2>label::before {
       content: "";
-      background-image: url("assets/kmtt-option-label-fork-min.png");
+      background-image: url("assets/kmtt-option-label-fork-min.webp");
       background-size: contain;
       background-repeat: no-repeat;
       width: 30px;
@@ -337,16 +337,17 @@
       transform: translate(-100%, 0);
     }
 
-    /* option labels checkers */
+    /* option labels checker pattern */
     .mb-2>label {
       color: var(--label-font-color);
       padding: 4px 16px;
       min-width: 50%;
-      border-image: url("assets/kmtt-option-label-pattern.png");
-      border-image-slice: 8 8 4 4 fill;
+      border-image: url("assets/kmtt-option-label-pattern-min.webp");
+      border-image-slice: 2 2 1 1 fill;
       border-image-width: 8px 8px 4px 4px;
       border-image-outset: 0px 0px 0px 0px;
       border-image-repeat: round round;
+      image-rendering: pixelated;
     }
 
     .form-check {
@@ -392,9 +393,9 @@
     }
 
 
-    /* Sparkle Particles on Click */
+    /* sparkles */
     .form-check-input[type="checkbox"]::before {
-      content: url("assets/kmtt-effect-sparkle.png");
+      content: url("assets/kmtt-effect-sparkle.webp");
       position: absolute;
       top: 50%;
       left: 50%;
