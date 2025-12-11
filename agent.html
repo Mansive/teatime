@@ -123,6 +123,14 @@
       }
     }
 
+    /* #options::before {
+      font-size: 200%;
+      content: "Settings";
+      position: absolute;
+      top: 80px;
+      left: 50%;
+      transform: translate(-50%, 0);
+    } */
 
     /* wood board */
     #options {
@@ -336,8 +344,33 @@
       border-image-repeat: round round;
     }
 
-    /* 
     .form-check {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding-left: 0;
+    }
+
+    .form-check-label {
+      order: 1;
+    }
+
+    .form-check-input {
+      order: 2;
+      position: static;
+      margin-top: 0;
+      margin-left: 0.5rem;
+    }
+
+    .form-text {
+      order: 3;
+      /* ensure the text always goes to newline no matter the window or text size */
+      width: 100%;
+    }
+
+
+    /* .form-check {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
@@ -367,9 +400,9 @@
       order: 3;
       width: 100%;
       margin-top: 8px;
-    }
+    } */
 
-    .form-check-input[type="checkbox"]::after {
+    /* .form-check-input[type="checkbox"]::after {
       content: "off";
       position: absolute;
       top: 50%;
@@ -388,7 +421,7 @@
     .form-check-input[type="checkbox"]:checked::after {
       content: "on";
       color: var(--paper-color);
-    } */
+    }*/
   </style>
   <base href="C:\StarryShiliu\Software\Agent\data\scripts" />
 </head>
