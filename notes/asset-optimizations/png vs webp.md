@@ -1,0 +1,1 @@
+From my testing, lossless WebP is about 25-29% smaller than PNG files encoded with Oxipng. The size savings are especially significant with larger files like `kmtt-menu-combined` and `kmtt-new-day-characters`.
