@@ -39,6 +39,11 @@
       /* --splash-stripe-color2: #ecad84; */
       --splash-stripe-color1: #cb8a70;
       --splash-stripe-color2: #c67c63;
+      --splash-animation-duration: 1.3s;
+      --splash-animation-delay: 1.5s;
+      --splash-max-width: 800px;
+      --splash-width: min(100vw, var(--splash-max-width));
+      --splash-stripe-width: calc(var(--splash-width) * 0.03);
 
       --background-size: 50px 85px;
       --background-color: #ffdbb5;
@@ -104,11 +109,11 @@
     /* characters, curtain, floot, logo */
     :root::after {
       z-index: 3;
-      background: no-repeat 0 100vh/100vw url("assets/kmtt-new-day-characters-min.webp"),
-        repeat-x top/12% url("assets/kmtt-new-day-curtain-min.webp"),
-        repeat-x bottom/16% url("assets/kmtt-new-day-floor.webp"),
-        no-repeat 50% 20%/70% url("assets/kmtt-logo-divided.png");
-      animation: characters-slide-up 0.4s ease-out 0.3s forwards;
+      background: no-repeat center 100vh/min(var(--splash-width), 80vh) url("assets/kmtt-new-day-characters-min.webp"),
+        repeat-x top/min(calc(var(--splash-width) * 0.12), 12vh) url("assets/kmtt-new-day-curtain-min.webp"),
+        repeat-x bottom/min(calc(var(--splash-width) * 0.16), 16vh) url("assets/kmtt-new-day-floor.webp"),
+        no-repeat 50% 20%/min(calc(var(--splash-width) * 0.7), 70vh) url("assets/kmtt-logo-divided.png");
+      animation: characters-slide-up 0.4s ease-out 0.3s forwards, splash-foreground-exit var(--splash-animation-duration) ease var(--splash-animation-delay) forwards;
     }
 
     @keyframes characters-slide-up {
@@ -123,7 +128,14 @@
       background: no-repeat center/max(100vw, 100vh) url("assets/kmtt-new-day-spotlight.png");
       mix-blend-mode: color-dodge;
       opacity: 0;
-      animation: spotlight-fade-in 0.2s ease-in-out forwards 0.1s;
+      animation: spotlight-fade-in 0.2s ease-in-out forwards 0.1s, splash-foreground-exit var(--splash-animation-duration) ease var(--splash-animation-delay) forwards;
+    }
+
+    /* striped background, lit by spotlight */
+    :root::before {
+      z-index: 1;
+      background: repeating-linear-gradient(to right, var(--splash-stripe-color1), var(--splash-stripe-color1) var(--splash-stripe-width), var(--splash-stripe-color2) var(--splash-stripe-width), var(--splash-stripe-color2) calc(var(--splash-stripe-width) * 2));
+      animation: splash-background-exit var(--splash-animation-duration) ease var(--splash-animation-delay) forwards;
     }
 
     @keyframes spotlight-fade-in {
@@ -132,10 +144,42 @@
       }
     }
 
-    /* striped background, lit by spotlight */
-    :root::before {
-      z-index: 1;
-      background: repeating-linear-gradient(to right, var(--splash-stripe-color1), var(--splash-stripe-color1) 3%, var(--splash-stripe-color2) 3%, var(--splash-stripe-color2) 6%);
+    @keyframes splash-foreground-exit {
+      0% {
+        filter: brightness(1);
+        opacity: 1;
+      }
+
+      50% {
+        filter: brightness(0);
+        opacity: 1;
+      }
+
+      51%,
+      100% {
+        filter: brightness(0);
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    @keyframes splash-background-exit {
+      0% {
+        filter: brightness(1);
+        opacity: 1;
+      }
+
+      50% {
+        filter: brightness(0);
+        opacity: 1;
+      }
+
+      95%,
+      100% {
+        filter: brightness(0);
+        opacity: 0;
+        visibility: hidden;
+      }
     }
 
     /* diamond checkers */
@@ -503,14 +547,14 @@
   <div class="container p-3">
     <div class="row">
       <div class="col-md-12">
-        <h2 id="title" class="text-center">Kemono Teatime</h2>
+        <!-- <h2 id="title" class="text-center">Kemono Teatime</h2>
         <p id="description" class="text-center">
           Configure text output and which hooks are enabled. <br />Hold the
           <code>Ctrl</code> key while clicking on hooks to toggle them
           individually. <br />Press <code>Ctrl + A</code> after clicking on a
           hooks box to enable all hooks in it. <br />Check Agent's console
           output to see each text's corresponding hook.
-        </p>
+        </p> -->
         <div id="options">
           <div class="form-check mb-2">
             <input id="config_singleSentence" class="form-check-input" type="checkbox" role="switch" />
