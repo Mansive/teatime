@@ -96,7 +96,8 @@
 
     :root::after,
     :root::before,
-    body::after {
+    body::after,
+    .container::after {
       content: "";
       position: fixed;
       pointer-events: none;
@@ -104,14 +105,21 @@
       inset: 0;
     }
 
-    /* characters, curtain, floot, logo */
+    /* characters, curtain, floot */
     :root::after {
-      z-index: 3;
+      z-index: 4;
       background: no-repeat center 100vh/min(var(--splash-width), 80vh) url("assets/kmtt-new-day-characters-min.webp"),
         repeat-x top/min(calc(var(--splash-width) * 0.12), 12vh) url("assets/kmtt-new-day-curtain-min.webp"),
-        repeat-x bottom/min(calc(var(--splash-width) * 0.16), 16vh) url("assets/kmtt-new-day-floor.webp"),
-        no-repeat 50% 17%/min(calc(var(--splash-width) * 0.7), 70vh) url("assets/kmtt-logo-divided.png");
+        repeat-x bottom/min(calc(var(--splash-width) * 0.16), 16vh) url("assets/kmtt-new-day-floor.webp");
       animation: characters-slide-up 0.4s ease-out 0.3s forwards, splash-foreground-exit var(--splash-animation-duration) ease var(--splash-animation-delay) forwards;
+    }
+
+    /* logo */
+    .container::after {
+      z-index: 3;
+      background: no-repeat 50% 17%/min(calc(var(--splash-width) * 0.7), 70vh) url("assets/kmtt-logo-divided-min.webp");
+      opacity: 0;
+      animation: spotlight-fade-in 0.2s ease-in-out forwards 0.1s, splash-foreground-exit var(--splash-animation-duration) ease var(--splash-animation-delay) forwards;
     }
 
     /* spotlight */
@@ -199,7 +207,7 @@
       }
 
       to {
-        /* png is 44x76, move twice the width */
+        /* image is 44x76, move twice the width */
         transform: translate3d(88px, 76px, 0px);
       }
     }
