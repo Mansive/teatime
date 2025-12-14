@@ -54,8 +54,8 @@
       --stripe-angle1: 60deg;
       --stripe-angle2: calc(-1 * var(--stripe-angle1));
 
-      --primary-box-stripe: #efb78e;
-      --secondary-box-stripe: #f4bf94;
+      --box-primary-color: #efb78e;
+      --box-secondary-color: #f4bf94;
       --box-dashed: #c07e65;
       --box-background: #ffe3a5;
       --box-border: #bd7d63;
@@ -116,12 +116,6 @@
       animation: characters-slide-up 0.4s ease-out 0.3s forwards, splash-foreground-exit var(--splash-animation-duration) ease var(--splash-animation-delay) forwards;
     }
 
-    @keyframes characters-slide-up {
-      to {
-        background-position: bottom, top, bottom, 50% 20%;
-      }
-    }
-
     /* spotlight */
     body::after {
       z-index: 2;
@@ -136,6 +130,12 @@
       z-index: 1;
       background: repeating-linear-gradient(to right, var(--splash-stripe-color1), var(--splash-stripe-color1) var(--splash-stripe-width), var(--splash-stripe-color2) var(--splash-stripe-width), var(--splash-stripe-color2) calc(var(--splash-stripe-width) * 2));
       animation: splash-background-exit var(--splash-animation-duration) ease var(--splash-animation-delay) forwards;
+    }
+
+    @keyframes characters-slide-up {
+      to {
+        background-position: bottom, top, bottom, 50% 20%;
+      }
     }
 
     @keyframes spotlight-fade-in {
@@ -377,7 +377,7 @@
           var(--wood-color-light) calc(var(--wood-plank-side-width) + var(--wood-plank-width) * 11));
 
       border: 2px solid black;
-      border-radius: 1%;
+      border-radius: 0.4rem;
       padding: 150px calc(1% + 60px);
     }
 
@@ -538,6 +538,39 @@
       order: 3;
       /* ensure the text always goes to newline no matter the window or text size */
       width: 100%;
+    }
+
+    .alert {
+      color: var(--label-font-color);
+      text-align: center;
+
+      background-color: var(--box-background);
+      background-size: var(--background-size);
+      background-image: linear-gradient(to right,
+          var(--box-primary-color) 50%,
+          var(--box-secondary-color) 50%);
+
+      border: 2px solid var(--box-background);
+      border-radius: 0.6rem;
+
+      outline: 4px solid var(--box-very-out);
+      outline-offset: 0rem;
+    }
+
+    .alert::before {
+      content: "";
+      position: absolute;
+
+      top: 5px;
+      left: 5px;
+      right: 5px;
+      bottom: 5px;
+
+      border: 5px dashed var(--box-dashed);
+      border-radius: 0.3rem;
+
+      outline: 2px solid black;
+      outline-offset: 0.5rem;
     }
   </style>
   <base href="C:\StarryShiliu\Software\Agent\data\scripts" />
@@ -836,7 +869,7 @@
     </div>
   </div>
   <small id="loaded"></small>
-  <div id="info" style="display: none" class="alert alert-info mt-3" role="alert"></div>
+  <div id="info" class="alert alert-info mt-3" role="alert">Single Line</div>
   <div id="warn" style="display: none" class="alert alert-warning mt-3" role="alert"></div>
   <div id="success" style="display: none" class="alert alert-success mt-3" role="alert"></div>
   <div id="error" style="display: none" class="alert alert-danger mt-3" role="alert"></div>
