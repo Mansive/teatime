@@ -479,6 +479,11 @@
       padding-left: 0;
     }
 
+    .form-check:hover {
+      background-color: #ffdf94;
+      border-radius: 0.5rem;
+    }
+
     .form-check-label {
       order: 1;
     }
@@ -513,12 +518,11 @@
       font-weight: bold;
     }
 
-
     /* sparkles */
     .form-check-input[type="checkbox"]::before {
       content: url("assets/kmtt-effect-sparkle.webp");
       position: absolute;
-      top: 50%;
+      top: calc(50% - 4px);
       left: 50%;
       transform: translate(-50%, -50%);
       width: 160px;
@@ -630,7 +634,7 @@
     </div>
   </div>
   <small id="loaded"></small>
-  <div id="info" style="display: none;" class="alert alert-info mt-3" role="alert">Filter Seen Text updated!</div>
+  <div id="info" class="alert alert-info mt-3" role="alert">Filter Seen Text updated!</div>
   <div id="warn" style="display: none" class="alert alert-warning mt-3" role="alert"></div>
   <div id="success" style="display: none" class="alert alert-success mt-3" role="alert"></div>
   <div id="error" style="display: none" class="alert alert-danger mt-3" role="alert"></div>
