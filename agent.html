@@ -99,7 +99,8 @@
     :root::after,
     :root::before,
     body::after,
-    .container::after {
+    .container::after,
+    .container::before {
       content: "";
       position: fixed;
       pointer-events: none;
@@ -107,13 +108,21 @@
       inset: 0;
     }
 
-    /* characters, curtain, floot */
+    /* curtain, floor */
     :root::after {
       z-index: 4;
-      background: no-repeat center 100vh/min(var(--splash-width), 80vh) url("assets/kmtt-new-day-characters-min.webp"),
+      background:
         repeat-x top/min(calc(var(--splash-width) * 0.12), 12vh) url("assets/kmtt-new-day-curtain-min.webp"),
         repeat-x bottom/min(calc(var(--splash-width) * 0.16), 16vh) url("assets/kmtt-new-day-floor.webp");
-      animation: characters-slide-up 0.4s ease-out 0.3s forwards, splash-foreground-exit var(--splash-animation-duration) ease var(--splash-animation-delay) forwards;
+      animation: splash-foreground-exit var(--splash-animation-duration) ease var(--splash-animation-delay) forwards;
+    }
+
+    /* characters */
+    .container::before {
+      z-index: 5;
+      content: "";
+      background: no-repeat bottom/min(var(--splash-width), 80vh) url("assets/kmtt-new-day-characters-min.webp");
+      animation: characters-slide-up 0.4s ease-out 0.3s both, splash-foreground-exit var(--splash-animation-duration) ease var(--splash-animation-delay) forwards;
     }
 
     /* logo */
@@ -141,8 +150,12 @@
     }
 
     @keyframes characters-slide-up {
+      from {
+        transform: translate3d(0, 100vh, 0);
+      }
+
       to {
-        background-position: bottom, top, bottom, 50% 17%;
+        transform: translate3d(0, 0, 0);
       }
     }
 
