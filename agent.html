@@ -573,9 +573,8 @@
 
       background-color: var(--box-background);
       background-size: var(--background-size);
-      background-image: linear-gradient(to right,
-          var(--box-primary-color) 50%,
-          var(--box-secondary-color) 50%);
+      /* background: repeating-linear-gradient(to right, var(--splash-stripe-color1), var(--splash-stripe-color1) var(--splash-stripe-width), var(--splash-stripe-color2) var(--splash-stripe-width), var(--splash-stripe-color2) calc(var(--splash-stripe-width) * 2)); */
+      background-image: repeating-linear-gradient(to right, var(--box-primary-color), var(--box-primary-color) var(--splash-stripe-width), var(--box-secondary-color) var(--splash-stripe-width), var(--box-secondary-color) calc(var(--splash-stripe-width) * 2));
 
       border: 2px solid var(--box-background);
       border-radius: 0.6rem;
