@@ -59,9 +59,13 @@ try {
   // Captures the quote (if any) and the path
   const urlRegex = /url\(\s*(['"]?)(assets\/[^'"\)]+)\1\s*\)/g;
 
-  let newCssContent = cssContent.replace(
-    urlRegex,
-    (match, quote, assetPath) => {
+  const linesWithInlinedAssets = cssContent.split("\n").map((line) => {
+    const indentMatch = line.match(/^\s*/);
+    const indent = indentMatch ? indentMatch[0] : "";
+
+    let comments = [];
+
+    const newLine = line.replace(urlRegex, (match, quote, assetPath) => {
       try {
         // Remove any query parameters or hashes for file lookup
         const cleanPath = assetPath.split(/[?#]/)[0];
@@ -69,6 +73,8 @@ try {
 
         if (fs.existsSync(fullPath)) {
           const ext = path.extname(cleanPath);
+
+          comments.push(`${indent}/* ${cleanPath} */`);
 
           if (ext.toLowerCase() === ".svg") {
             let svgContent = fs.readFileSync(fullPath, "utf8");
@@ -104,8 +110,15 @@ try {
         console.error(`Error processing ${assetPath}:`, err.message);
         return match;
       }
+    });
+
+    if (comments.length > 0) {
+      return comments.join("\n") + "\n" + newLine;
     }
-  );
+    return newLine;
+  });
+
+  let newCssContent = linesWithInlinedAssets.join("\n");
 
   // Remove the unwanted block using regex
   const blockToRemoveRegex =
