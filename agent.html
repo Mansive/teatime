@@ -461,8 +461,9 @@
       position: relative;
       color: var(--label-font-color);
       padding: 4px 16px;
-      min-width: 50%;
+      width: 100%;
       margin: 3% 0;
+      text-align: center;
       border-image: url("assets/kmtt-option-label-pattern-min.webp");
       border-image-slice: 2 2 1 1 fill;
       border-image-width: 8px 8px 4px 4px;
@@ -472,10 +473,9 @@
     }
 
     .form-check {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: 55% 1fr;
       align-items: center;
-      justify-content: space-between;
       padding-left: 0;
     }
 
@@ -485,13 +485,13 @@
 
     .form-check-input[type="checkbox"] {
       order: 2;
+      justify-self: center;
       appearance: none;
       width: 20px;
       height: 20px;
       background-color: var(--checkbox-inner-color);
       margin: 4px;
       position: relative;
-      margin-right: 25%;
       box-shadow:
         /* left, right, top edges and corners*/
         -2px -2px 0 0 var(--checkbox-border-color),
@@ -618,10 +618,10 @@
           <div class="form-check mb-2"><input id="config_singleSentence" class="form-check-input" type="checkbox"
               role="switch"><label class="form-check-label" for="config_singleSentence">Single Sentence</label></div>
           <div class="form-check mb-2"><input id="config_noCharacterNames" class="form-check-input" type="checkbox"
-              role="switch"><label class="form-check-label" for="config_noCharacterNames">No Character Names</label>
+              role="switch"><label class="form-check-label" for="config_noCharacterNames">Character Names</label>
           </div>
           <div class="form-check mb-2"><input id="config_onlyDialogue" class="form-check-input" type="checkbox"
-              role="switch"><label class="form-check-label" for="config_onlyDialogue">Only Dialogue Text</label></div>
+              role="switch"><label class="form-check-label" for="config_onlyDialogue">Only Dialogue</label></div>
           <div class="form-check mb-2"><input id="config_filterSeenText" class="form-check-input" type="checkbox"
               role="switch"><label class="form-check-label" for="config_filterSeenText">Filter Seen Text</label></div>
           <div class="form-check mb-2"><input id="config_debugLogs" class="form-check-input" type="checkbox"
