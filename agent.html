@@ -19,6 +19,11 @@
       margin-bottom: 2em;
     }
 
+    #title,
+    #description {
+      display: none;
+    }
+
     @font-face {
       font-family: "FusionPixel";
       src: url("assets/fusion-pixel-10px-monospaced-latin-min.woff2");
@@ -457,6 +462,7 @@
       color: var(--label-font-color);
       padding: 4px 16px;
       min-width: 50%;
+      margin: 3% 0;
       border-image: url("assets/kmtt-option-label-pattern-min.webp");
       border-image-slice: 2 2 1 1 fill;
       border-image-width: 8px 8px 4px 4px;
@@ -485,7 +491,7 @@
       background-color: var(--checkbox-inner-color);
       margin: 4px;
       position: relative;
-      margin-right: 5%;
+      margin-right: 25%;
       box-shadow:
         /* left, right, top edges and corners*/
         -2px -2px 0 0 var(--checkbox-border-color),
@@ -598,299 +604,34 @@
 </head>
 
 <body>
+
   <div class="container p-3">
     <div class="row">
       <div class="col-md-12">
-        <!-- <h2 id="title" class="text-center">Kemono Teatime</h2>
-        <p id="description" class="text-center">
-          Configure text output and which hooks are enabled. <br />Hold the
-          <code>Ctrl</code> key while clicking on hooks to toggle them
-          individually. <br />Press <code>Ctrl + A</code> after clicking on a
-          hooks box to enable all hooks in it. <br />Check Agent's console
-          output to see each text's corresponding hook.
-        </p> -->
+        <h2 id="title" class="text-center">Kemono Teatime</h2>
+        <p id="description" class="text-center">Configure text output and which hooks are enabled.
+          <br>Check Agent's console output to see each text's corresponding hook.
+        </p>
         <div id="options">
-          <div class="form-check mb-2">
-            <input id="config_singleSentence" class="form-check-input" type="checkbox" role="switch" />
-            <label class="form-check-label" for="config_singleSentence">Single-line sentences</label>
-            <small class="form-text text-muted">Attempt to convert sentences that span multiple lines into a
-              single line. Useful for external apps that need to parse
-              sentences. Disable if you want to retain the text's original
-              formatting.
-            </small>
+          <div class="form-check mb-2"><input id="config_fancyOutput" class="form-check-input" type="checkbox"
+              role="switch"><label class="form-check-label" for="config_fancyOutput">Fancy Portraits</label></div>
+          <div class="form-check mb-2"><input id="config_singleSentence" class="form-check-input" type="checkbox"
+              role="switch"><label class="form-check-label" for="config_singleSentence">Single Sentence</label></div>
+          <div class="form-check mb-2"><input id="config_noCharacterNames" class="form-check-input" type="checkbox"
+              role="switch"><label class="form-check-label" for="config_noCharacterNames">No Character Names</label>
           </div>
-          <div class="form-group mb-2">
-            <label for="config_hooksEnabledCount">Number of hooks enabled</label><input id="config_hooksEnabledCount"
-              class="form-control" readonly="" type="text" />
-          </div>
-          <div class="form-group mb-2">
-            <label for="config_selectedHook">Display character count from...</label><select id="config_selectedHook"
-              class="custom-select">
-              <option value="AreaNameBanner">AreaNameBanner</option>
-              <option value="BattleAction">BattleAction</option>
-              <option value="BattleActionEnemySpecial">
-                BattleActionEnemySpecial
-              </option>
-              <option value="BattleActionSpecial">BattleActionSpecial</option>
-              <option value="BattleEnemyName">BattleEnemyName</option>
-              <option value="BattleSkillInfo1">BattleSkillInfo1</option>
-              <option value="BattleSkillInfo2">BattleSkillInfo2</option>
-              <option value="Choice">Choice</option>
-              <option value="CraftRecipeMaterial1">
-                CraftRecipeMaterial1
-              </option>
-              <option value="CraftRecipeMaterial2">
-                CraftRecipeMaterial2
-              </option>
-              <option value="CraftRecipeName">CraftRecipeName</option>
-              <option value="CraftTransferTraitInfo">
-                CraftTransferTraitInfo
-              </option>
-              <option value="DMakerMaterialCategory">
-                DMakerMaterialCategory
-              </option>
-              <option value="DMakerMaterialTrait">DMakerMaterialTrait</option>
-              <option value="DialogueName">DialogueName</option>
-              <option value="DialogueText">DialogueText</option>
-              <option value="EncyclopediaDialogue">
-                EncyclopediaDialogue
-              </option>
-              <option value="EncyclopediaEffectInfo">
-                EncyclopediaEffectInfo
-              </option>
-              <option value="EncyclopediaEffectName">
-                EncyclopediaEffectName
-              </option>
-              <option value="EncyclopediaEnemyName">
-                EncyclopediaEnemyName
-              </option>
-              <option value="EncyclopediaFacilityName">
-                EncyclopediaFacilityName
-              </option>
-              <option value="EncyclopediaFieldName">
-                EncyclopediaFieldName
-              </option>
-              <option value="EncyclopediaHelpInfo">
-                EncyclopediaHelpInfo
-              </option>
-              <option value="EncyclopediaHelpName">
-                EncyclopediaHelpName
-              </option>
-              <option value="EncyclopediaItemName">
-                EncyclopediaItemName
-              </option>
-              <option value="EncyclopediaRecipeCategory">
-                EncyclopediaRecipeCategory
-              </option>
-              <option value="EncyclopediaRecipeCompleteName">
-                EncyclopediaRecipeCompleteName
-              </option>
-              <option value="EncyclopediaRecipeCondition">
-                EncyclopediaRecipeCondition
-              </option>
-              <option value="EncyclopediaRecipeIncompleteName">
-                EncyclopediaRecipeIncompleteName
-              </option>
-              <option value="EncyclopediaRecipeMaterial1">
-                EncyclopediaRecipeMaterial1
-              </option>
-              <option value="EncyclopediaRecipeMaterial2">
-                EncyclopediaRecipeMaterial2
-              </option>
-              <option value="EncyclopediaTraitInfo">
-                EncyclopediaTraitInfo
-              </option>
-              <option value="EncyclopediaTraitName">
-                EncyclopediaTraitName
-              </option>
-              <option value="EventInfo">EventInfo</option>
-              <option value="EventName">EventName</option>
-              <option value="EventObjective">EventObjective</option>
-              <option value="ExtraSoundRoomInfo">ExtraSoundRoomInfo</option>
-              <option value="ExtraSoundRoomName">ExtraSoundRoomName</option>
-              <option value="ItemName">ItemName</option>
-              <option value="MainMenuDialogue">MainMenuDialogue</option>
-              <option value="MaterialCategory">MaterialCategory</option>
-              <option value="MaterialEffect">MaterialEffect</option>
-              <option value="MaterialQuality">MaterialQuality</option>
-              <option value="MaterialTrait">MaterialTrait</option>
-              <option value="NotificationBanner">NotificationBanner</option>
-              <option value="QuestEnemyName">QuestEnemyName</option>
-              <option value="QuestInfo">QuestInfo</option>
-              <option value="QuestItemName">QuestItemName</option>
-              <option value="QuestName">QuestName</option>
-              <option value="RecipeMaterial1">RecipeMaterial1</option>
-              <option value="RecipeMaterial2">RecipeMaterial2</option>
-              <option value="RecipeName">RecipeName</option>
-              <option value="RecipeObtainedName">RecipeObtainedName</option>
-              <option value="RelatedRecipe">RelatedRecipe</option>
-              <option value="RumorKnownInfo">RumorKnownInfo</option>
-              <option value="RumorName">RumorName</option>
-              <option value="RumorTypeName">RumorTypeName</option>
-              <option value="RumorUnknownInfo">RumorUnknownInfo</option>
-              <option value="SideDialogue">SideDialogue</option>
-              <option value="SkillObtained">SkillObtained</option>
-              <option value="StatusAbilityInfo">StatusAbilityInfo</option>
-              <option value="StatusSkillInfo">StatusSkillInfo</option>
-              <option value="StatusSkillName">StatusSkillName</option>
-              <option value="SynthesisTransferTraitInfo">
-                SynthesisTransferTraitInfo
-              </option>
-              <option value="TownMapAreaName">TownMapAreaName</option>
-              <option value="WorldMapAreaName">
-                WorldMapAreaName
-              </option>
-            </select><small class="form-text text-muted">Select a hook to display its character count.</small>
-          </div>
-          <div class="form-group mb-2">
-            <label for="config_selectedHookCharacterCount">Character count for selected hook</label><input
-              id="config_selectedHookCharacterCount" class="form-control" readonly="" type="number" /><small
-              class="form-text text-muted">Displays the total number of characters outputted by the
-              selected hook. <br />Resets with each session.</small>
-          </div>
-          <div class="form-group mb-2">
-            <label for="config_hooksMain">Main Hooks</label><select id="config_hooksMain" class="custom-select"
-              multiple="multiple">
-              <option value="DialogueName">DialogueName</option>
-              <option value="DialogueText">DialogueText</option>
-              <option value="Choice">Choice</option>
-            </select><small class="form-text text-muted">Dialogue during cutscenes and choices.</small>
-          </div>
-          <div class="form-group mb-2">
-            <label for="config_hooksOverworld">Overworld Hooks</label><select id="config_hooksOverworld"
-              class="custom-select" multiple="multiple">
-              <option value="NotificationBanner">NotificationBanner</option>
-              <option value="AreaNameBanner">AreaNameBanner</option>
-              <option value="SideDialogue">SideDialogue</option>
-              <option value="BattleEnemyName">BattleEnemyName</option>
-              <option value="BattleSkillInfo1">BattleSkillInfo1</option>
-              <option value="BattleSkillInfo2">BattleSkillInfo2</option>
-              <option value="BattleAction">BattleAction</option>
-              <option value="BattleActionSpecial">BattleActionSpecial</option>
-              <option value="BattleActionEnemySpecial">
-                BattleActionEnemySpecial
-              </option>
-              <option value="SkillObtained">SkillObtained</option>
-            </select><small class="form-text text-muted">Texts that occur in the overworld, such as enemy skill names
-              and area banners.</small>
-          </div>
-          <div class="form-group mb-2">
-            <label for="config_hooksMenu">Menu Hooks</label><select id="config_hooksMenu" class="custom-select"
-              multiple="multiple">
-              <option value="WorldMapAreaName">WorldMapAreaName</option>
-              <option value="TownMapAreaName">TownMapAreaName</option>
-              <option value="MainMenuDialogue">MainMenuDialogue</option>
-              <option value="EventName">EventName</option>
-              <option value="EventInfo">EventInfo</option>
-              <option value="QuestName">QuestName</option>
-              <option value="QuestEnemyName">QuestEnemyName</option>
-              <option value="QuestItemName">QuestItemName</option>
-              <option value="QuestInfo">QuestInfo</option>
-              <option value="RumorName">RumorName</option>
-              <option value="RumorTypeName">RumorTypeName</option>
-              <option value="RumorKnownInfo">RumorKnownInfo</option>
-              <option value="RumorUnknownInfo">RumorUnknownInfo</option>
-              <option value="EventObjective">EventObjective</option>
-              <option value="StatusSkillName">StatusSkillName</option>
-              <option value="StatusSkillInfo">StatusSkillInfo</option>
-              <option value="StatusAbilityInfo">StatusAbilityInfo</option>
-              <option value="ItemName">ItemName</option>
-              <option value="RecipeName">RecipeName</option>
-              <option value="RecipeObtainedName">RecipeObtainedName</option>
-              <option value="RecipeMaterial1">RecipeMaterial1</option>
-              <option value="RecipeMaterial2">RecipeMaterial2</option>
-              <option value="MaterialQuality">MaterialQuality</option>
-              <option value="MaterialEffect">MaterialEffect</option>
-              <option value="MaterialTrait">MaterialTrait</option>
-              <option value="MaterialCategory">MaterialCategory</option>
-              <option value="RelatedRecipe">RelatedRecipe</option>
-              <option value="SynthesisTransferTraitInfo">
-                SynthesisTransferTraitInfo
-              </option>
-              <option value="CraftTransferTraitInfo">
-                CraftTransferTraitInfo
-              </option>
-              <option value="CraftRecipeName">CraftRecipeName</option>
-              <option value="CraftRecipeMaterial1">
-                CraftRecipeMaterial1
-              </option>
-              <option value="CraftRecipeMaterial2">
-                CraftRecipeMaterial2
-              </option>
-              <option value="DMakerMaterialCategory">
-                DMakerMaterialCategory
-              </option>
-              <option value="DMakerMaterialTrait">
-                DMakerMaterialTrait
-              </option>
-            </select><small class="form-text text-muted">Menu texts such as recipes, quests, and more.</small>
-          </div>
-          <div class="form-group mb-2">
-            <label for="config_hooksEncyclopedia">Encyclopedia Hooks</label><select id="config_hooksEncyclopedia"
-              class="custom-select" multiple="multiple">
-              <option value="EncyclopediaItemName">
-                EncyclopediaItemName
-              </option>
-              <option value="EncyclopediaFacilityName">
-                EncyclopediaFacilityName
-              </option>
-              <option value="EncyclopediaFieldName">
-                EncyclopediaFieldName
-              </option>
-              <option value="EncyclopediaEnemyName">
-                EncyclopediaEnemyName
-              </option>
-              <option value="EncyclopediaDialogue">
-                EncyclopediaDialogue
-              </option>
-              <option value="EncyclopediaEffectName">
-                EncyclopediaEffectName
-              </option>
-              <option value="EncyclopediaEffectInfo">
-                EncyclopediaEffectInfo
-              </option>
-              <option value="EncyclopediaTraitName">
-                EncyclopediaTraitName
-              </option>
-              <option value="EncyclopediaTraitInfo">
-                EncyclopediaTraitInfo
-              </option>
-              <option value="EncyclopediaHelpName">
-                EncyclopediaHelpName
-              </option>
-              <option value="EncyclopediaHelpInfo">
-                EncyclopediaHelpInfo
-              </option>
-              <option value="EncyclopediaRecipeCompleteName">
-                EncyclopediaRecipeCompleteName
-              </option>
-              <option value="EncyclopediaRecipeIncompleteName">
-                EncyclopediaRecipeIncompleteName
-              </option>
-              <option value="EncyclopediaRecipeCondition">
-                EncyclopediaRecipeCondition
-              </option>
-              <option value="EncyclopediaRecipeCategory">
-                EncyclopediaRecipeCategory
-              </option>
-              <option value="EncyclopediaRecipeMaterial1">
-                EncyclopediaRecipeMaterial1
-              </option>
-              <option value="EncyclopediaRecipeMaterial2">
-                EncyclopediaRecipeMaterial2
-              </option>
-              <option value="ExtraSoundRoomName">ExtraSoundRoomName</option>
-              <option value="ExtraSoundRoomInfo">
-                ExtraSoundRoomInfo
-              </option>
-            </select><small class="form-text text-muted">Encyclopedia texts.</small>
-          </div>
+          <div class="form-check mb-2"><input id="config_onlyDialogue" class="form-check-input" type="checkbox"
+              role="switch"><label class="form-check-label" for="config_onlyDialogue">Only Dialogue Text</label></div>
+          <div class="form-check mb-2"><input id="config_filterSeenText" class="form-check-input" type="checkbox"
+              role="switch"><label class="form-check-label" for="config_filterSeenText">Filter Seen Text</label></div>
+          <div class="form-check mb-2"><input id="config_debugLogs" class="form-check-input" type="checkbox"
+              role="switch"><label class="form-check-label" for="config_debugLogs">Show Debug Logs</label></div>
         </div>
       </div>
     </div>
   </div>
   <small id="loaded"></small>
-  <div id="info" class="alert alert-info mt-3" role="alert">Single Line</div>
+  <div id="info" style="display: none;" class="alert alert-info mt-3" role="alert">Filter Seen Text updated!</div>
   <div id="warn" style="display: none" class="alert alert-warning mt-3" role="alert"></div>
   <div id="success" style="display: none" class="alert alert-success mt-3" role="alert"></div>
   <div id="error" style="display: none" class="alert alert-danger mt-3" role="alert"></div>
@@ -900,19 +641,19 @@
 
     let storageEnabled = false;
     let storageKey = null;
-    const titleElement = document.getElementById("title");
-    const descElement = document.getElementById("description");
-    const optionsElement = document.getElementById("options");
+    const titleElement = document.getElementById('title');
+    const descElement = document.getElementById('description');
+    const optionsElement = document.getElementById('options');
     const alertTimeouts = {};
     const alertElements = {
-      info: document.getElementById("info"),
-      error: document.getElementById("error"),
-      warn: document.getElementById("warn"),
-      success: document.getElementById("success"),
+      info: document.getElementById('info'),
+      error: document.getElementById('error'),
+      warn: document.getElementById('warn'),
+      success: document.getElementById('success'),
     };
 
     // handle configuration changes from the script
-    rpc.on("changed", (id, value) => {
+    rpc.on('changed', (id, value) => {
       if (setConfig(id, value)) {
         // no need to notify the script since this
         // came from the script.
@@ -921,14 +662,14 @@
     });
 
     // handle incoming alerts
-    rpc.on("alert", alert);
+    rpc.on('alert', alert);
 
     function updateStorage(id, value) {
       if (!storageEnabled) {
         return;
       }
 
-      const json = localStorage.getItem(storageKey) || "{}";
+      const json = localStorage.getItem(storageKey) || '{}';
       const config = JSON.parse(json);
       config[id] = value;
       localStorage.setItem(storageKey, JSON.stringify(config));
@@ -939,7 +680,7 @@
         return;
       }
 
-      const json = localStorage.getItem(storageKey) || "{}";
+      const json = localStorage.getItem(storageKey) || '{}';
       const config = JSON.parse(json);
       for (const key of Object.keys(config)) {
         if (setConfig(key, config[key])) {
@@ -951,12 +692,9 @@
 
     // unused but this function can be used to load an external CSS file
     function addStyle(file) {
-      const link = document.createElement("link");
-      link.href = window.location.href.replace(
-        "resources/app/dist/index.html",
-        "data/scripts/" + file
-      );
-      link.rel = "stylesheet";
+      const link = document.createElement('link');
+      link.href = window.location.href.replace('resources/app/dist/index.html', 'data/scripts/' + file);
+      link.rel = 'stylesheet';
       // use prepend so the stylesheet is above our styles
       document.head.prepend(link);
     }
@@ -972,7 +710,7 @@
       rpc.exports.changed(option.id, value).then(() => {
         if (!showAlert) return;
         const text = (option.label || option.id) + " updated!";
-        alert("info", text, 1000);
+        alert('info', text, 1000);
       });
     }
 
@@ -981,56 +719,48 @@
         return false;
       }
 
-      const element = document.getElementById("config_" + id);
+      const element = document.getElementById('config_' + id);
       if (element === undefined) {
-        error("Could not find element with ID " + id);
+        error('Could not find element with ID ' + id);
         return false;
       }
 
       const tag = element.tagName.toLowerCase();
 
       // handle buttons
-      if (tag === "button") {
+      if (tag === 'button') {
         // do nothing
         return false;
       }
 
       // handle checkboxes, numbers, and text
-      if (tag === "input") {
+      if (tag === 'input') {
         switch (element.type) {
-          case "checkbox":
+          case 'checkbox':
             element.checked = value;
             return true;
-          case "number":
-          case "text":
+          case 'number':
+          case 'text':
             element.value = value;
             return true;
           default:
-            error(
-              "Could not handle update for " +
-              tag +
-              " with type " +
-              element.type +
-              "!"
-            );
+            error('Could not handle update for ' + tag + ' with type ' + element.type + '!');
         }
         return false;
       }
 
       // handle selects
-      if (tag === "select") {
-        const options = element.getElementsByTagName("option");
+      if (tag === 'select') {
+        const options = element.getElementsByTagName('option');
         for (const option of options) {
-          const multiple = typeof value !== "string";
-          option.selected = multiple
-            ? value.includes(option.value)
-            : option.value === value;
+          const multiple = typeof value !== 'string';
+          option.selected = multiple ? value.includes(option.value) : (option.value === value);
         }
         return true;
       }
 
       // unsupported element
-      error("Could not handle update for tag " + tag + "!");
+      error('Could not handle update for tag ' + tag + '!');
       return false;
     }
 
@@ -1040,20 +770,20 @@
       }
 
       // don't add help text for inline checkboxes
-      if (option.type === "checkbox" && option.inline === true) {
+      if (option.type === 'checkbox' && option.inline === true) {
         return;
       }
 
-      const help = document.createElement("small");
-      help.className = "form-text text-muted";
+      const help = document.createElement('small');
+      help.className = 'form-text text-muted';
       help.innerHTML = option.help;
       element.append(help);
     }
 
     function addOption(element, option) {
-      const div = document.createElement("div");
-      div.className = "form-group mb-2";
-      const label = document.createElement("label");
+      const div = document.createElement('div');
+      div.className = 'form-group mb-2';
+      const label = document.createElement('label');
       label.innerText = option.label;
       label.htmlFor = element.id;
       div.append(label);
@@ -1063,48 +793,44 @@
     }
 
     function addTextField(option) {
-      const input = document.createElement("input");
-      input.id = "config_" + option.id;
-      input.className = "form-control";
+      const input = document.createElement('input');
+      input.id = 'config_' + option.id;
+      input.className = 'form-control';
       input.readOnly = option.readOnly === true;
-      if (option.type === "number") {
-        input.type = "number";
+      if (option.type === 'number') {
+        input.type = 'number';
         input.value = option.defaultValue || 0;
         input.onchange = (e) => onChange(option, parseInt(e.target.value));
-      } else if (option.type === "text") {
-        input.type = "text";
-        input.value = option.defaultValue || "";
+      } else if (option.type === 'text') {
+        input.type = 'text';
+        input.value = option.defaultValue || '';
         input.onchange = (e) => onChange(option, e.target.value);
       } else {
-        error("Unknown input type: " + option.type);
+        error('Unknown input type: ' + option.type);
         return;
       }
       addOption(input, option);
     }
 
     function addSelect(option) {
-      const select = document.createElement("select");
-      select.id = "config_" + option.id;
-      select.className = "custom-select";
+      const select = document.createElement('select');
+      select.id = 'config_' + option.id;
+      select.className = 'custom-select';
       select.onchange = function () {
-        const selected = option.multiple
-          ? [...this.selectedOptions].map((o) => o.value)
-          : this.value;
+        const selected = option.multiple ? [...this.selectedOptions].map(o => o.value) : this.value;
         onChange(option, selected);
       };
 
       if (option.multiple === true) {
-        select.setAttribute("multiple", "multiple");
+        select.setAttribute('multiple', 'multiple');
       }
 
       // add the options
       for (const opt of option.options) {
-        const element = document.createElement("option");
+        const element = document.createElement('option');
         element.value = opt.value;
         element.innerText = opt.text;
-        element.selected =
-          opt.value === option.defaultValue ||
-          (option.multiple && opt.selected);
+        element.selected = (opt.value === option.defaultValue) || (option.multiple && opt.selected);
         select.appendChild(element);
       }
 
@@ -1112,19 +838,19 @@
     }
 
     function addCheckbox(option) {
-      const div = document.createElement("div");
-      div.className = "form-check mb-2";
+      const div = document.createElement('div');
+      div.className = 'form-check mb-2';
 
-      const input = document.createElement("input");
-      input.id = "config_" + option.id;
-      input.className = "form-check-input";
-      input.type = "checkbox";
-      input.role = "switch";
+      const input = document.createElement('input');
+      input.id = 'config_' + option.id;
+      input.className = 'form-check-input';
+      input.type = 'checkbox';
+      input.role = 'switch';
       input.checked = option.defaultValue || false;
       input.onchange = (e) => onChange(option, e.currentTarget.checked);
 
-      const label = document.createElement("label");
-      label.className = "form-check-label";
+      const label = document.createElement('label');
+      label.className = 'form-check-label';
       label.innerText = option.label;
       label.htmlFor = input.id;
 
@@ -1135,10 +861,10 @@
     }
 
     function addButton(option) {
-      const button = document.createElement("button");
+      const button = document.createElement('button');
       button.type = "button";
-      button.id = "config_" + option.id;
-      button.className = "btn btn-success btn-block mt-2"; // success to match Agent's button
+      button.id = 'config_' + option.id;
+      button.className = 'btn btn-success btn-block mt-2'; // success to match Agent's button
       button.innerText = option.label;
       button.onclick = () => onChange(option, undefined);
 
@@ -1146,9 +872,7 @@
     }
 
     // display an error in the UI
-    function error(message) {
-      alert("error", message);
-    }
+    function error(message) { alert('error', message); }
 
     // display an alert in the UI (info, warn, error)
     function alert(type, message, duration = 5000) {
@@ -1157,12 +881,9 @@
       if (element === undefined) return;
 
       element.innerText = message;
-      element.style.display = "";
+      element.style.display = '';
       clearTimeout(alertTimeouts[type]);
-      alertTimeouts[type] = setTimeout(
-        () => (element.style.display = "none"),
-        duration
-      );
+      alertTimeouts[type] = setTimeout(() => element.style.display = 'none', duration);
     }
 
     function loaded() {
@@ -1170,22 +891,22 @@
     }
 
     // call script to get title, description, and configuration
-    rpc.exports.title().then((title) => (titleElement.innerHTML = title));
-    rpc.exports.description().then((desc) => (descElement.innerHTML = desc));
-    rpc.exports.options().then((options) => {
+    rpc.exports.title().then(title => titleElement.innerHTML = title);
+    rpc.exports.description().then(desc => descElement.innerHTML = desc);
+    rpc.exports.options().then(options => {
       for (const option of options) {
         switch (option.type) {
-          case "select":
+          case 'select':
             addSelect(option);
             break;
-          case "checkbox":
+          case 'checkbox':
             addCheckbox(option);
             break;
-          case "number":
-          case "text":
+          case 'number':
+          case 'text':
             addTextField(option);
             break;
-          case "button":
+          case 'button':
             addButton(option);
             break;
           default:
@@ -1195,16 +916,20 @@
 
       loaded();
 
-      rpc.exports.storage().then((storage) => {
+      rpc.exports.storage().then(storage => {
         if (!storage.enabled) return;
 
-        storageKey = "config-" + storage.key;
+        storageKey = 'config-' + storage.key;
         storageEnabled = true;
-        console.log("Enabling storage with key " + storageKey + "...");
+        console.log('Enabling storage with key ' + storageKey + '...');
         loadStorage();
       });
-    });
+    })
+
+    addStyle('../../resources/app/dist/bundle.css');
   </script>
+
+
 </body>
 
 </html>
