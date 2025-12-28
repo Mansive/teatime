@@ -4,7 +4,7 @@ A demo page of the project is available at <https://mteatime.pages.dev/agent>. I
 
 I've wrote down some of the things I learned while working on this project in the `notes` directory.
 
-Run `node inline_assets.js` to generate CSS with inlined assets. Output is located in the `build` directory.
+Run `node inline_assets.js` to generate CSS with inlined assets. Output will be placed in the `build` directory.
 
 Here's a short demonstration of the page on its intended app, [Agent](https://github.com/0xDC00/agent):
 
